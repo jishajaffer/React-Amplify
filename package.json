@@ -16,7 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pretty-quick": "pretty-quick"
+    "pretty-quick": "pretty-quick",
+    "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
+    "lint:fix": "eslint . --fix"
   },
   "eslintConfig": {
     "extends": "@imaginary-cloud/react"
