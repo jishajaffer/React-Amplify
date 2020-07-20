@@ -6,7 +6,7 @@ import Post from "./pages/Post/Post";
 function App() {
   return (
     <>
-      <Route exact path="/posts/:id" component={Post}></Route>
+      <Route exact path="/post/:id" component={Post}></Route>
     </>
   );
 }

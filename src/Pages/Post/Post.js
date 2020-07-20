@@ -1,14 +1,10 @@
 import React from "react";
-
-
 import * as postsApi from "../../services/FakePostService";
-let post = postsApi.getPostsById();
 
-const Post = () => {
-  // const title = "Sample Title"; //Need to be from service
-  // const image = "https://picsum.photos/seed/picsum/200/300";
-  // const content =
-  //   "AND has amassed a wide variety of client experiences, resulting in lots of good project assets being generated - but not easy to find and browse";
+const Post = (props) => {
+  const isAdmin = false;
+  const postId = props.match.params.id;
+  let post = postsApi.getPostsById(postId);
 
   return (
     <div>
@@ -25,12 +21,38 @@ const Post = () => {
             </td>
             <td>
               {post.image ? (
-                <img src={post.image} className="rounded mx-auto d-block" alt={post.image} />
+                <img
+                  src={post.image}
+                  className="rounded mx-auto d-block"
+                  alt={post.image}
+                />
               ) : (
                 <></>
               )}
             </td>
           </tr>
+          <tr>
+            <td>{post.category}</td>
+          </tr>
+          {isAdmin ? (
+            <>
+              <tr>
+                <td>
+                  <button type="button" className="btn float-right btn-success mr-2">
+                    Edit
+                  </button>
+                  <button type="button" className="btn float-right btn-success mr-2">
+                    Cancel
+                  </button>
+                  <button type="button" className="btn float-right btn-success mr-2">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </>
+          ) : (
+            <></>
+          )}
         </tbody>
       </table>
     </div>
