@@ -16,6 +16,6 @@ const posts = [
 ];
 
 export function getPostsById(id) {
-  const post = posts.filter(post => post.id === id)
+  const post = posts.filter(post => parseInt(post.id) === id);
   return post[0];
 }
