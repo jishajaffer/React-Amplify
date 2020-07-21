@@ -5,7 +5,7 @@ import * as fakeArticleService from "../../services/fakeArticleService";
 
 /**
  * <div className="form-group text-right p-2 text-white-50 bg-primary shadow-sm">
-                <span class="align-middle">Filter by Categories:</span>
+                <span className="align-middle">Filter by Categories:</span>
                 <select className="custom-select ml-2">
                     <option value="" />
 
@@ -128,19 +128,29 @@ function Home() {
                   <h5 className="card-title">Article Title</h5>
                   <p className="card-text">{"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="border border-secondary rounded p-1">Categories: COVID-19</div>
+                    <div className="border border-secondary rounded p-1">
+                      Categories: COVID-19
+                    </div>
                     <div className="btn-group">
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-secondary"
+                      >
+                        Read More
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-secondary"
+                      >
+                        Edit
+                      </button>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>
           </div>
         </div>
-
 
         <div className="col-md-6">
           <div className="card mb-3 shadow-sm">
@@ -153,13 +163,24 @@ function Home() {
                   <h5 className="card-title">Article Title</h5>
                   <p className="card-text">{"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="border border-secondary rounded p-1">Categories: Summercamp</div>
+                    <div className="border border-secondary rounded p-1">
+                      Categories: COVID-19
+                    </div>
                     <div className="btn-group">
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
-                      <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-secondary"
+                      >
+                        Read More
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-outline-secondary"
+                      >
+                        Edit
+                      </button>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>
