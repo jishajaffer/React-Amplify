@@ -96,15 +96,13 @@ function Home() {
                           <div className="card-body">
                             <h5 className="card-title">{articleTitle}</h5>
                             <p className="card-text">{articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent.substring(0, 200)}</p>
-                            <div className="d-flex justify-content-between align-items-center">
-                              <div className="border border-secondary rounded p-1">{`Category: ${articleCategory}`}</div>
-                              <div className="btn-group">
-                                <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
-                                <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
-                              </div>
-                            </div> 
+                            <div className="btn-group float-right">
+                              <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
+                              <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+                            </div>
                           </div>
                         </div>
+                          <span className="border border-secondary rounded p-1 ml-4 mt-3 mb-4">{`Category: ${articleCategory}`}</span>
                       </div>
                     </div>
 
@@ -155,7 +153,7 @@ function Home() {
                   <h5 className="card-title">Article Title</h5>
                   <p className="card-text">{"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <div className="border border-secondary rounded p-1">Categories: COVID-19</div>
+                    <div className="border border-secondary rounded p-1">Categories: Summercamp</div>
                     <div className="btn-group">
                       <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
                       <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
