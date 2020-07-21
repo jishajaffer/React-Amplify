@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import logo from "./summercamp.png";
 import GoogleLogin from "react-google-login";
 import "./Login.css";
-import * as userService from "../../services/userService/userService"
+import * as auth from "../../services/userService/userService"
 const Login = (props) => {
 
   const handleSuccess = (response) => {
     console.log(response);
-
-    if (userService.authenticateUser(response.accessToken)) {
+    auth.authenticateUser(response.token);
+    if (auth.getCurrentUser()) {
       //setUser(response.profileObj);
       window.location = "/home";
     }

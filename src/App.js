@@ -19,9 +19,13 @@ function App() {
   const [user, setUser] = useState({});
 
   const initState = () => {
-    const gwt = localStorage.getItem("gwt_token");
-    if (gwt) {
+    const jwt = auth.getCurrentUser();
+    console.log("jwt");
+    console.log(jwt);
+    if (jwt) {
       setUser({ name: "Ken Miles" });
+    } else {
+      setUser({});
     }
   };
 
