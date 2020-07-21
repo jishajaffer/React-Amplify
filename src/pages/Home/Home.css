@@ -2,4 +2,6 @@ select.custom-select {
   width: 15em;
 }
 
-
+.highlighted {
+  background-color: #f2e9ee;
+}
