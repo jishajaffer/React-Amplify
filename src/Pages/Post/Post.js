@@ -6,7 +6,7 @@ const Post = (props) => {
   const postId = props.match.params.id;
   let post = postsApi.getPostsById(postId);
 
-  const handleEdit = (id) => {
+  const handleEdit = () => {
     //update path to relevant page (edit) and pass ID
     window.location = "/";
   };
@@ -16,7 +16,7 @@ const Post = (props) => {
     window.location = "/";
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = () => {
     //Call api delete article
     //Update path to relevant page (home)
     window.location = "/";
