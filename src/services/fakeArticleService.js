@@ -12,7 +12,7 @@ const articles = [
     id: "2",
     title: "Sample Title 2",
     image: "https://picsum.photos/seed/picsum/200/300",
-    content: "this is the second lot of content",
+    content: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     category: "COVID-19",
     highlighted: false
   },
@@ -24,6 +24,14 @@ const articles = [
     category: "COVID-19",
     highlighted: true
   },
+  {
+    id: "4",
+    title: "Sample Title 4",
+    image: "https://picsum.photos/seed/picsum/200/300",
+    content: "New people have joined AND!",
+    category: "New Joiners",
+    highlighted: false
+  },
 ];
 
 export function getArticlesById(id) {
@@ -34,6 +42,14 @@ export function getArticles() {
   return articles.filter(a => a);
 }
 
-export function getHighlightedArticles() {
+export function getArticlesByCategory(category) {
+  return articles.filter((article) => article.category === category);
+}
+
+export function getHighlightedArticles(articles) {
   return articles.filter((article) => article.highlighted);
+}
+
+export function getNonHighlightedArticles(articles) {
+  return articles.filter((article) => !article.highlighted);
 }

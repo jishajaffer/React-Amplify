@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "./summercamp.png";
 import GoogleLogin from "react-google-login";
 import "./Login.css";
-import * as auth from "../../services/userService/userService"
-const Login = (props) => {
+import * as auth from "../../services/userService/userService";
+const Login = () => {
 
   const handleSuccess = (response) => {
     console.log(response);
@@ -16,7 +16,7 @@ const Login = (props) => {
 
   const handleFailure = (response) => {
     console.log(response);
-  }
+  };
   return (
     <>
       <div className="text-center" id="logoContainer">
