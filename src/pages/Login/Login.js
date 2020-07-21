@@ -4,13 +4,13 @@ import GoogleLogin from "react-google-login";
 import "./Login.css";
 import * as userService from "../../services/userService/userService"
 const Login = (props) => {
-  const [user, setUser] = useState();
 
   const handleSuccess = (response) => {
     console.log(response);
 
     if (userService.authenticateUser(response.accessToken)) {
-      setUser(response.profileObj);
+      //setUser(response.profileObj);
+      window.location = "/home";
     }
   };
 

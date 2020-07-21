@@ -1,19 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
+// Context
+import { UserProvider } from "./context/userContext";
 
 // Pages
 import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login"
+import Login from "./pages/Login/Login";
+
+// Services
+import * as auth from "./services/userService/userService";
+
+// Components
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
+  const [user, setUser] = useState({});
+
+  const initState = () => {
+    const gwt = localStorage.getItem("gwt_token");
+    if (gwt) {
+      setUser({ name: "Ken Miles" });
+    }
+  };
+
+  useEffect(() => {
+    initState();
+  }, []);
+
   return (
     <>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/home" component={Home} />
-      </Switch>
+      <UserProvider value={{ user, setUser }}>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <ProtectedRoute exact path="/home" component={Home} />
+        </Switch>
+      </UserProvider>
     </>
   );
 }
