@@ -7,7 +7,7 @@ const Article = (props) => {
   let article = articleApi.getArticlesById(articleId);
 
   const handleEdit = () => {
-    //update path to relevant page (edit) and pass ID
+    //update path to relevant page (edit)
     window.location = "/";
   };
 
