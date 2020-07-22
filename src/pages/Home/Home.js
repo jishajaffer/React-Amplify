@@ -79,7 +79,7 @@ function Home(props) {
         <div className="container">
           {chunkArticles(nonhighlightedArticles, 2).map((articleGroup, groupIndex) => {
             return (
-              <div className="row ml-3 mr-3" key={groupIndex}>
+              <div className="row" key={groupIndex}>
                 {articleGroup.map((article, articleIndex) => {
                   const { id: articleId, title: articleTitle, content: articleContent, category: articleCategory } = article;
                   return (
