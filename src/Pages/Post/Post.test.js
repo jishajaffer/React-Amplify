@@ -26,3 +26,27 @@ test("renders post title", async () => {
     expect(deleteButton).toBeInTheDocument();
   }
 });
+
+test("No rendering if its invalid id", () => {
+  const isAdmin = true;
+
+  const { queryByText, debug } = render(
+    <Post match={{ params: { id: 0 } }} />
+  );
+
+  debug();
+  const title =  queryByText("titleId");
+  const image =  queryByText("imageId");
+  const content =  queryByText("contentId");
+  const editButton =  queryByText("buttonEdit");
+  const cancelButton =  queryByText("buttonCancel");
+  const deleteButton =  queryByText("buttonDelete");
+
+  expect(title).not.toBeInTheDocument();
+  expect(image).not.toBeInTheDocument();
+  expect(content).not.toBeInTheDocument();
+  expect(editButton).not.toBeInTheDocument();
+  expect(cancelButton).not.toBeInTheDocument();
+  expect(deleteButton).not.toBeInTheDocument();
+
+});
