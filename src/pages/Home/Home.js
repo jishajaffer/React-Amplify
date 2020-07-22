@@ -47,7 +47,7 @@ function Home(props) {
 
       {highlightedArticles.length > 0 &&
         (
-          <section className="highlighted d-block pb-4 mb-5">
+          <section className="highlighted d-block pb-4">
             <h6 className="p-3 pb-4">Highlighted</h6>
             {chunkArticles(highlightedArticles, 2).map((articleGroup, groupIndex) => {
               return (
@@ -72,7 +72,7 @@ function Home(props) {
         )
       }
 
-      <section className="non-highlighted d-block pb-4">
+      <section className="non-highlighted d-block pb-4 mt-5">
         {chunkArticles(nonhighlightedArticles, 2).map((articleGroup, groupIndex) => {
           return (
             <div className="row ml-3 mr-3" key={groupIndex}>
