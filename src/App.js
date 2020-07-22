@@ -38,7 +38,7 @@ function App() {
     <>
       <UserProvider value={{ user, setUser }}>
         <Switch>
-        <ProtectedRoute exact path="/article/:id" component={Article}/>
+          <ProtectedRoute exact path="/article/:id" component={Article}/>
           <Route exact path="/" component={Login} />
           <ProtectedRoute exact path="/home" component={Home} />
         </Switch>

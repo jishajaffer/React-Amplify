@@ -28,8 +28,6 @@ test("renders article title", async () => {
 });
 
 test("No rendering if its invalid id", () => {
-  const isAdmin = true;
-
   const { queryByText, debug } = render(
     <Article match={{ params: { id: 0 } }} />
   );

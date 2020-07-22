@@ -82,7 +82,7 @@ function Home(props) {
                 return (
                   <div className="col-md-6" key={articleIndex}>
                     <ArticleCard
-                    articleId={articleId}
+                      articleId={articleId}
                       articleTitle={articleTitle}
                       articleContent={articleContent}
                       articleCategory={articleCategory}
