@@ -12,11 +12,7 @@ function Home(props) {
   const highlightedArticles = fakeArticleService.getHighlightedArticles(articles);
   const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(articles);
 
-  console.log("foo", sortByCategory);
-
   const handleFilterCategory = ({ currentTarget: { value } }) => {
-    console.log(value);
-    //window.location = `/home/?sortByCategory=${value}`;
     props.history.push(`/home/?sortByCategory=${value}`);
   };
 
@@ -44,7 +40,6 @@ function Home(props) {
           ))}
         </select>
       </div>
-
       {highlightedArticles.length > 0 &&
         (
           <section className="highlighted d-block pb-4">
@@ -74,7 +69,6 @@ function Home(props) {
           </section>
         )
       }
-
       <section className="non-highlighted d-block pb-4 mt-5">
         <div className="container">
           {chunkArticles(nonhighlightedArticles, 2).map((articleGroup, groupIndex) => {
@@ -98,8 +92,6 @@ function Home(props) {
           })}
         </div>
       </section>
-
-
     </>
   );
 }
