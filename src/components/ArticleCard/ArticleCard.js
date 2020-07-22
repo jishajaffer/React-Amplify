@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 /**
  * <div className="row no-gutters">
         <div className="col-md-4 pl-4 pt-4 pb-4">
@@ -47,7 +47,7 @@ import React from "react";
  */
 
 function ArticleCard(props) {
-  const { articleTitle, articleContent, articleCategory, highlighted } = props;
+  const { articleId, articleTitle, articleContent, articleCategory, highlighted } = props;
   return (
     <div className={`card mb-3 shadow-sm ${highlighted && "border-danger"}`} >
       <div className="row no-gutters">
@@ -59,8 +59,8 @@ function ArticleCard(props) {
             <h5 className="card-title">{articleTitle}</h5>
             <p className="card-text">{articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent.substring(0, 200)}</p>
             <div className="btn-group float-right">
-              <button type="button" className="btn btn-sm btn-outline-secondary">Read More</button>
-              <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+              <Link className="btn btn-sm btn-outline-secondary" to={`/article/${articleId}`} >Read More</Link>
+              <Link className="btn btn-sm btn-outline-secondary" to="/article/1" >Edit</Link>
             </div>
           </div>
         </div>

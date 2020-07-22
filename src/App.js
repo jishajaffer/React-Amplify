@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import Article from "./pages/Article/Article";
 
 // Context
 import { UserProvider } from "./context/userContext";
@@ -37,6 +38,7 @@ function App() {
     <>
       <UserProvider value={{ user, setUser }}>
         <Switch>
+        <ProtectedRoute exact path="/article/:id" component={Article}/>
           <Route exact path="/" component={Login} />
           <ProtectedRoute exact path="/home" component={Home} />
         </Switch>
