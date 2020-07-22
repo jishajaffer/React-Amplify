@@ -3,33 +3,44 @@ import "./Home.css";
 import * as fakeCategoryService from "../../services/fakeCategoryService";
 import * as fakeArticleService from "../../services/fakeArticleService";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
+import queryString from "query-string";
 
-const chunkArticles = (articles, size) => {
-  let index = 0;
-  let results = [];
+function Home(props) {
+  const { sortByCategory = "All" } = queryString.parse(props.location.search);
 
-  while (index < articles.length) {
-    results.push(articles.slice(index, size + index));
-    index += size;
-  }
-
-  return results;
-};
-
-const articles = fakeArticleService.getArticles();
-const highlightedArticles = fakeArticleService.getHighlightedArticles(articles);
-const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(articles);
-
-function Home() {
+  const articles = sortByCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(sortByCategory);
+  const highlightedArticles = fakeArticleService.getHighlightedArticles(articles);
+  const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(articles);
+  
+  console.log("foo", sortByCategory);
+  
+  const handleFilterCategory = ({ currentTarget: { value } }) => {
+    console.log(value);
+    //window.location = `/home/?sortByCategory=${value}`;
+    props.history.push(`/home/?sortByCategory=${value}`);
+  };
+  
+  const chunkArticles = (articles, size) => {
+    let index = 0;
+    let results = [];
+  
+    while (index < articles.length) {
+      results.push(articles.slice(index, size + index));
+      index += size;
+    }
+  
+    return results;
+  };
+  
   return (
     <>
       <h1>Home - imagine a nav bar above</h1>
       <div className="d-flex p-2 text-white bg-dark shadow-sm justify-content-end">
         <span className="align-self-center">Filter by Categories:</span>
-        <select className="custom-select align-self-center ml-2">
-          <option>All Categories</option>
+        <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
+          <option value="All">All</option>
           {fakeCategoryService.getCategories().map((category, index) => (
-            <option key={`category-${index}`}>{category}</option>
+            <option key={`category-${index}`} value={category}>{category}</option>
           ))}
         </select>
       </div>
