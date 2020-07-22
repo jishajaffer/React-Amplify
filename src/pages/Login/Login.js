@@ -31,7 +31,7 @@ const Login = () => {
       <div className="text-center" id="googleLoginButton">
         <GoogleLogin
           clientId="720340655248-ql1qmrgsuj9267ch3lgar94r2dccqm3r.apps.googleusercontent.com"
-          buttonText="Login with Google"
+          buttonText="Sign in with Google"
           onSuccess={handleSuccess}
           onFailure={handleFailure}
           cookiePolicy={"single_host_origin"}

@@ -4,7 +4,7 @@ import Login from "./Login";
 
 test("renders learn react link", () => {
   const { getByText, getByAltText } = render(<Login />);
-  const loginButton = getByText("Login with Google");
+  const loginButton = getByText("Sign in with Google");
   const summerCampLogo = getByAltText("Logo");
   expect(loginButton).toBeInTheDocument();
   expect(summerCampLogo).toBeInTheDocument();
