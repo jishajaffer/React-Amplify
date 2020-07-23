@@ -19,10 +19,8 @@ test("renders article title", async () => {
   //If Admin
   if (isAdmin) {
     const editButton = await findByTestId("buttonEdit");
-    const cancelButton = await findByTestId("buttonCancel");
     const deleteButton = await findByTestId("buttonDelete");
     expect(editButton).toBeInTheDocument();
-    expect(cancelButton).toBeInTheDocument();
     expect(deleteButton).toBeInTheDocument();
   }
 });
@@ -37,14 +35,12 @@ test("No rendering if its invalid id", () => {
   const image =  queryByText("imageId");
   const content =  queryByText("contentId");
   const editButton =  queryByText("buttonEdit");
-  const cancelButton =  queryByText("buttonCancel");
   const deleteButton =  queryByText("buttonDelete");
 
   expect(title).not.toBeInTheDocument();
   expect(image).not.toBeInTheDocument();
   expect(content).not.toBeInTheDocument();
   expect(editButton).not.toBeInTheDocument();
-  expect(cancelButton).not.toBeInTheDocument();
   expect(deleteButton).not.toBeInTheDocument();
 
 });

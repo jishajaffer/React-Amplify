@@ -33,10 +33,10 @@ const Article = (props) => {
           )}
           <div className="row">
             <div className="col-md-4">
-              <h3>{article.category}</h3>
+              <h3 data-testid="categoryId">{article.category}</h3>
             </div>
             <div className="col-md-8">
-              <h1>{article.title}</h1>
+              <h1 data-testid="titleId">{article.title}</h1>
               <p className="text-justify" data-testid="contentId">
                 {article.content}
               </p>
