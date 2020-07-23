@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./summercamp.png";
+import logo from "../../images/summercamp.png";
 import GoogleLogin from "react-google-login";
 import "./Login.css";
 import * as auth from "../../services/userService/userService";

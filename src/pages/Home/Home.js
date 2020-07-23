@@ -4,6 +4,7 @@ import * as fakeCategoryService from "../../services/fakeCategoryService";
 import * as fakeArticleService from "../../services/fakeArticleService";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import queryString from "query-string";
+import Navbar from "../../components/Navbar/Navbar";
 
 function Home(props) {
   const { sortByCategory = "All" } = queryString.parse(props.location.search);
@@ -31,7 +32,6 @@ function Home(props) {
 
   return (
     <>
-      <h1>Home - imagine a nav bar above</h1>
       <div className="d-flex p-2 text-white bg-dark shadow-sm justify-content-end">
         <span className="align-self-center">Filter by Categories:</span>
         <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
