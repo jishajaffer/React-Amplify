@@ -22,7 +22,7 @@ const Article = (props) => {
       {article && (
         <>
           {article.image && (
-            <div class="jumbotron">
+            <div className="jumbotron">
               <img
                 data-testid="imageId"
                 src={article.image}
