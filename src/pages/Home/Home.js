@@ -39,7 +39,7 @@ function Home(props) {
           <div className="row py-4">
             <div className="col-12">
               <div className="d-flex rounded p-2 text-dark bg-light shadow-sm justify-content-between">
-                <Link className="btn btn-secondary" to={`/article/create`}>Create New Article</Link>
+                <Link className="btn btn-secondary" to="/article/create">Create New Article</Link>
                 <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
                   <option value="All">All</option>
                   {fakeCategoryService.getCategories().map((category, index) => (
