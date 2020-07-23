@@ -26,7 +26,7 @@ function App() {
     console.log(jwt);
     if (jwt) {
       setUser({
-        name: "Ken Miles",
+        name: "Dexter Morgan",
         isAdmin: true,
         profilePhoto:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9iUQ5TVznynSsqOdajd-zXGY5hgNWOD9LWg&usqp=CAU",
