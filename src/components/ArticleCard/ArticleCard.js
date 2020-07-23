@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./ArticleCard.css";
 
 function ArticleCard(props) {
   const { articleId, articleImage, articleTitle, articleContent, articleCategory, highlighted } = props;
@@ -11,12 +12,9 @@ function ArticleCard(props) {
       <div className="card-body d-flex flex-column">
         <h5 className="card-title">{articleTitle}</h5>
         <p className="card-text">{articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent.substring(0, 200)}</p>
-        <div className="d-flex justify-content-between align-items-center mt-auto">
+        <Link className="stretched-link" to={`/article/${articleId}`} />
+        <div className="mt-auto">
           <Link className="btn btn-sm btn-secondary" to={`/home/?sortByCategory=${articleCategory}`}>{articleCategory}</Link>
-          <div className="btn-group float-right">
-            <Link className="btn btn-sm btn-outline-secondary" to={`/article/${articleId}`} >Read More</Link>
-            <Link className="btn btn-sm btn-outline-secondary" to="/article/1" >Edit</Link>
-          </div> 
         </div>
       </div>
     </div>
