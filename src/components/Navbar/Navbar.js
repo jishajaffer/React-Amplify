@@ -15,7 +15,6 @@ function Navbar() {
       <ul className="navbar-nav">
         <li className="navbar-item">
           <img src={user.profilePhoto} id="profile-photo" alt="profile photo"/>
-          {/* <a className="navbar-link">Profile</a> */}
         </li>
       </ul>
     </nav>
