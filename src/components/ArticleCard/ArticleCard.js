@@ -13,8 +13,9 @@ function ArticleCard(props) {
         <h5 className="card-title">{articleTitle}</h5>
         <p className="card-text">{articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent.substring(0, 200)}</p>
         <Link className="stretched-link" to={`/article/${articleId}`} />
-        <div className="mt-auto">
+        <div className="d-flex justify-content-between align-items-center mt-auto">
           <Link className="btn btn-sm btn-secondary" to={`/home/?sortByCategory=${articleCategory}`}>{articleCategory}</Link>
+          <Link className="btn btn-sm btn-outline-secondary" to="/article/1" >Edit</Link>
         </div>
       </div>
     </div>
