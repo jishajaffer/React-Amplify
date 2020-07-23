@@ -12,7 +12,7 @@ function Navbar() {
       <a className="navbar-brand">
         <img src={logo} height="10%" width="10%" alt="Summer Camp logo"/>
       </a>
-      <ul className="navbar-nav">
+      <ul className="navbar-nav ml-auto">
         <li className="navbar-item">
           <img src={user.profilePhoto} id="profile-photo" alt="profile photo"/>
         </li>
