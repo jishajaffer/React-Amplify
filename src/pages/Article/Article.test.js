@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { fireEvent, render, cleanup } from "@testing-library/react";
 import Article from "./Article";
 
 test("renders article title", async () => {
@@ -46,3 +46,29 @@ test("No rendering if its invalid id", () => {
   expect(editButton).not.toBeInTheDocument();
   expect(deleteButton).not.toBeInTheDocument();
 });
+
+test("Button capture test for delete", async () => {
+  function handleDelete() {
+  }
+
+  const { findByTestId } = render(
+    <Article onClick={handleDelete} match={{ params: { id: 1 } }} />
+  );
+
+  const deleteButton = await findByTestId("buttonDelete");
+  fireEvent.click(deleteButton);
+});
+
+test("Button capture test for edit", async () => {
+  function handleEdit() {
+  }
+
+  const { findByTestId } = render(
+    <Article onClick={handleEdit} match={{ params: { id: 1 } }} />
+  );
+
+  const editButton = await findByTestId("buttonEdit");
+  fireEvent.click(editButton);
+});
+
+afterEach(cleanup);
