@@ -5,9 +5,6 @@ import Form from "../../components/Form/Form";
 import * as articleApi from "../../services/fakeArticleService";
 
 const Create = (props) => {
-
-  console.log("here");
-
   const { id: articleId } = props.match.params;
   let article;
 
@@ -37,6 +34,11 @@ const Create = (props) => {
 
   const formData = articleToFormData(article);
 
+  const handleImageChange = event => {
+    const file = event.target.files;
+    alert(file);
+  };
+
   const initialValidationState = {
     title: null,
     content: null,
@@ -47,7 +49,7 @@ const Create = (props) => {
   const inputs = [
     { name: "title", label: "Title" },
     { name: "content", label: "Content" },
-    { name: "image", label: "Image" },
+    { name: "image", label: "Image", type: "file", onChange:{handleImageChange}},
     {
       name: "categoryId",
       label: "Category",
@@ -57,7 +59,6 @@ const Create = (props) => {
   ];
 
   const schema = {
-    id: Joi.string().allow(""),
     title: Joi.string().required().label("Title"),
     content: Joi.string().required().label("Content"),
     image: Joi.string().label("Image"),
@@ -76,15 +77,17 @@ const Create = (props) => {
   };
 
   return (
-    <div>
-      <Form
-        inputs={inputs}
-        submitButton={submitButton}
-        doSubmit={doSubmit}
-        initialData={formData}
-        validationSchema={schema}
-        initialValidationState={initialValidationState}
-      ></Form>
+    <div className="container">
+      <div>
+        <Form
+          inputs={inputs}
+          submitButton={submitButton}
+          doSubmit={doSubmit}
+          initialData={formData}
+          validationSchema={schema}
+          initialValidationState={initialValidationState}
+        ></Form>
+      </div>
     </div>
   );
 };

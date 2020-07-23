@@ -23,8 +23,6 @@ function App() {
 
   const initState = () => {
     const jwt = auth.getCurrentUser();
-    console.log("jwt");
-    console.log(jwt);
     if (jwt) {
       setUser({ name: "Ken Miles" });
     } else {
