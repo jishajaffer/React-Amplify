@@ -8,9 +8,10 @@ import queryString from "query-string";
 function Home(props) {
   const { sortByCategory = "All" } = queryString.parse(props.location.search);
 
-  const articles = sortByCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(sortByCategory);
-  const highlightedArticles = fakeArticleService.getHighlightedArticles(articles);
-  const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(articles);
+  const rawArticles = sortByCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(sortByCategory);
+  const sortedArticles = rawArticles.sort((a, b) => {return a.timestamp - b.timestamp;});
+  const highlightedArticles = fakeArticleService.getHighlightedArticles(sortedArticles);
+  const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(sortedArticles);
 
   const handleFilterCategory = ({ currentTarget: { value } }) => {
     props.history.push(`/home/?sortByCategory=${value}`);

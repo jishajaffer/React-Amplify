@@ -1,7 +1,8 @@
 export const categories = [
   "New Joiners",
   "COVID-19",
-  "Business Update"
+  "Business Update",
+  "Summercamp"
 ];
 
 export function getCategories() {
