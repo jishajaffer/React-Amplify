@@ -50,11 +50,12 @@ function Home(props) {
                 return (
                   <div className="row" key={groupIndex}>
                     {articleGroup.map((article, articleIndex) => {
-                      const { id: articleId, title: articleTitle, content: articleContent, category: articleCategory } = article;
+                      const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory } = article;
                       return (
-                        <div className="col-md-6" key={articleIndex}>
+                        <div className="col-md-6 mb-4" key={articleIndex}>
                           <ArticleCard
                             articleId={articleId}
+                            articleImage={articleImage}
                             articleTitle={articleTitle}
                             articleContent={articleContent}
                             articleCategory={articleCategory}
@@ -76,11 +77,12 @@ function Home(props) {
             return (
               <div className="row" key={groupIndex}>
                 {articleGroup.map((article, articleIndex) => {
-                  const { id: articleId, title: articleTitle, content: articleContent, category: articleCategory } = article;
+                  const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory } = article;
                   return (
-                    <div className="col-md-6" key={articleIndex}>
+                    <div className="col-md-6 mb-4" key={articleIndex}>
                       <ArticleCard
                         articleId={articleId}
+                        articleImage={articleImage}
                         articleTitle={articleTitle}
                         articleContent={articleContent}
                         articleCategory={articleCategory}
