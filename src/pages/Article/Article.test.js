@@ -5,16 +5,16 @@ import Article from "./Article";
 test("renders article title", async () => {
   const isAdmin = true;
 
-  const { findByTestId } = render(
-    <Article match={{ params: { id: 1 } }} />
-  );
+  const { findByTestId } = render(<Article match={{ params: { id: 1 } }} />);
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
   const content = await findByTestId("contentId");
+  const category = await findByTestId("categoryId");
 
   expect(title).toBeInTheDocument();
   expect(image).toBeInTheDocument();
   expect(content).toBeInTheDocument();
+  expect(category).toBeInTheDocument();
 
   //If Admin
   if (isAdmin) {
@@ -31,16 +31,18 @@ test("No rendering if its invalid id", () => {
   );
 
   debug();
-  const title =  queryByText("titleId");
-  const image =  queryByText("imageId");
-  const content =  queryByText("contentId");
-  const editButton =  queryByText("buttonEdit");
-  const deleteButton =  queryByText("buttonDelete");
+  const title = queryByText("titleId");
+  const image = queryByText("imageId");
+  const content = queryByText("contentId");
+  const category = queryByText("categoryId");
+
+  const editButton = queryByText("buttonEdit");
+  const deleteButton = queryByText("buttonDelete");
 
   expect(title).not.toBeInTheDocument();
   expect(image).not.toBeInTheDocument();
   expect(content).not.toBeInTheDocument();
+  expect(category).not.toBeInTheDocument();
   expect(editButton).not.toBeInTheDocument();
   expect(deleteButton).not.toBeInTheDocument();
-
 });
