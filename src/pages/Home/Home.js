@@ -9,10 +9,10 @@ function Home(props) {
   const { sortByCategory = "All" } = queryString.parse(props.location.search);
 
   const rawArticles = sortByCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(sortByCategory);
-  const sortedArticles = rawArticles.sort((a, b) => {return a.timestamp - b.timestamp;});
-  const highlightedArticles = fakeArticleService.getHighlightedArticles(sortedArticles);
-  const nonhighlightedArticles = fakeArticleService.getNonHighlightedArticles(sortedArticles);
-
+  const sortedArticlesByDate = rawArticles.sort((a, b) => a.timestamp - b.timestamp);
+  // Sorting by subtracting a boolean works because true - false === 1, false - true === -1 and true - true === 0
+  const sortedArticles = sortedArticlesByDate.sort((a, b) => b.highlighted - a.highlighted);
+ 
   const handleFilterCategory = ({ currentTarget: { value } }) => {
     props.history.push(`/home/?sortByCategory=${value}`);
   };
@@ -32,69 +32,47 @@ function Home(props) {
   return (
     <>
       <h1>Home - imagine a nav bar above</h1>
-      <div className="d-flex p-2 text-white bg-dark shadow-sm justify-content-end">
-        <span className="align-self-center">Filter by Categories:</span>
-        <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
-          <option value="All">All</option>
-          {fakeCategoryService.getCategories().map((category, index) => (
-            <option key={`category-${index}`} value={category}>{category}</option>
-          ))}
-        </select>
-      </div>
-      {highlightedArticles.length > 0 &&
-        (
-          <section className="highlighted d-block pb-4">
-            <h6 className="p-3 pb-4">Highlighted</h6>
-            <div className="container">
-              {chunkArticles(highlightedArticles, 2).map((articleGroup, groupIndex) => {
-                return (
-                  <div className="row" key={groupIndex}>
-                    {articleGroup.map((article, articleIndex) => {
-                      const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory } = article;
-                      return (
-                        <div className="col-md-6 mb-4" key={articleIndex}>
-                          <ArticleCard
-                            articleId={articleId}
-                            articleImage={articleImage}
-                            articleTitle={articleTitle}
-                            articleContent={articleContent}
-                            articleCategory={articleCategory}
-                            highlighted={true}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        )
-      }
-      <section className="non-highlighted d-block pb-4 mt-5">
+
+      <div className="d-block bg-pink">
         <div className="container">
-          {chunkArticles(nonhighlightedArticles, 2).map((articleGroup, groupIndex) => {
-            return (
-              <div className="row" key={groupIndex}>
-                {articleGroup.map((article, articleIndex) => {
-                  const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory } = article;
-                  return (
-                    <div className="col-md-6 mb-4" key={articleIndex}>
-                      <ArticleCard
-                        articleId={articleId}
-                        articleImage={articleImage}
-                        articleTitle={articleTitle}
-                        articleContent={articleContent}
-                        articleCategory={articleCategory}
-                      />
-                    </div>
-                  );
-                })}
+          <div className="row py-4">
+            <div className="col-12">
+              <div className="d-flex rounded p-2 text-dark bg-light shadow-sm justify-content-end">
+                <span className="align-self-center">Filter by Categories:</span>
+                <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
+                  <option value="All">All</option>
+                  {fakeCategoryService.getCategories().map((category, index) => (
+                    <option key={`category-${index}`} value={category}>{category}</option>
+                  ))}
+                </select>
               </div>
-            );
-          })}
+            </div>
+          </div>
+          <section className="article-section">
+            {chunkArticles(sortedArticles, 2).map((articleGroup, groupIndex) => {
+              return (
+                <div className="row" key={groupIndex}>
+                  {articleGroup.map((article, articleIndex) => {
+                    const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory, highlighted } = article;
+                    return (
+                      <div className="col-md-6 mb-4" key={articleIndex}>
+                        <ArticleCard
+                          articleId={articleId}
+                          articleImage={articleImage}
+                          articleTitle={articleTitle}
+                          articleContent={articleContent}
+                          articleCategory={articleCategory}
+                          highlighted={highlighted}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </section>
         </div>
-      </section>
+      </div>
     </>
   );
 }
