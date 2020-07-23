@@ -8,15 +8,15 @@ function ArticleCard(props) {
   return (
     <div className="card h-100 shadow-sm">
       {articleImage && (
-        <img className="card-img-top img-responsive" alt="Thumbnail [100%x225]" src={articleImage} />
+        <img className="card-img-top rounded" alt="Thumbnail [100%x225]" src={articleImage} />
       )}
       <div className="card-body d-flex flex-column">
         <h5 className="card-title">{articleTitle}</h5>
         <p className="card-text">
           {articleImage ? (
-            articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent.substring(0, 200)
+            articleContent.length > 200 ? `${articleContent.substring(0, 200)}...` : articleContent
           ) : (
-            articleContent.length > 600 ? `${articleContent.substring(0, 600)}...` : articleContent.substring(0, 600)
+            articleContent.length > 600 ? `${articleContent.substring(0, 600)}...` : articleContent
           )}
         </p>
         <Link className="stretched-link" to={`/article/${articleId}`} />
