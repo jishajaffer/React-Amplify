@@ -8,7 +8,7 @@ function ArticleCard(props) {
   return (
     <div className="card h-100 shadow-sm">
       {articleImage && (
-        <img className="card-img-top img-fluid" alt="Thumbnail [100%x225]" src={articleImage} />
+        <img className="card-img-top img-responsive" alt="Thumbnail [100%x225]" src={articleImage} />
       )}
       <div className="card-body d-flex flex-column">
         <h5 className="card-title">{articleTitle}</h5>
