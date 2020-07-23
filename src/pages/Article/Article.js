@@ -4,7 +4,7 @@ import * as articleApi from "../../services/fakeArticleService";
 const Article = (props) => {
   const isAdmin = true;
   const articleId = props.match.params.id;
-  let article = articleApi.getArticlesById(articleId);
+  const article = articleApi.getArticlesById(articleId);
 
   const handleEdit = () => {
     //update path to relevant page (edit)
@@ -24,45 +24,41 @@ const Article = (props) => {
 
   return (
     <div>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            {article && (
+      {article && (
+        <table className="table table-striped">
+          <thead>
+            <tr>
               <th scope="col" data-testid="titleId">
                 {article.title}
               </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              {article && (
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
                 <p className="text-justify" data-testid="contentId">
                   {article.content}
                 </p>
-              )}
-            </td>
-            {article && (
-              <td>
-                {article.image ? (
-                  <img
-                    data-testid="imageId"
-                    src={article.image}
-                    className="rounded mx-auto d-block"
-                    alt={article.image}
-                  />
-                ) : (
-                  <></>
-                )}
               </td>
-            )}
-          </tr>
-          <tr>{article && <td>{article.category}</td>}</tr>
-          {isAdmin ? (
-            <>
-              <tr>
-                {article && (
+              <td>
+                <img
+                  data-testid="imageId"
+                  src={article.image}
+                  className="rounded mx-auto d-block"
+                  alt={article.image}
+                />
+
+                <></>
+              </td>
+            </tr>
+
+            <tr>
+              <td>{article.category}</td>
+            </tr>
+
+            {isAdmin && (
+              <>
+                <tr>
                   <td>
                     <button
                       type="button"
@@ -89,14 +85,13 @@ const Article = (props) => {
                       Delete
                     </button>
                   </td>
-                )}
-              </tr>
-            </>
-          ) : (
+                </tr>
+              </>
+            )}
             <></>
-          )}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
