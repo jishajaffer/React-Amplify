@@ -21,7 +21,7 @@ function ArticleCard(props) {
         </p>
         <Link className="stretched-link" to={`/article/${articleId}`} />
         <div className="d-flex justify-content-between align-items-center mt-auto">
-          <span class="badge badge-primary p-2">{articleCategory}</span>
+          <span className="badge badge-primary p-2">{articleCategory}</span>
           <div className="edit-article">
             <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to="/article/1" >Edit</Link>
             {highlighted && (

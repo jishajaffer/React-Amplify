@@ -56,11 +56,11 @@ function App() {
           />
           <Route exact path="/" component={Login} />
           <ProtectedRoute exact path="/home" component={(props) => (
-              <>
-                <Navbar />
-                <Home {...props} />
-              </>
-            )} />
+            <>
+              <Navbar />
+              <Home {...props} />
+            </>
+          )} />
         </Switch>
       </UserProvider>
     </>
