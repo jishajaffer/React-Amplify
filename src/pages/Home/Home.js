@@ -4,7 +4,6 @@ import * as fakeCategoryService from "../../services/fakeCategoryService";
 import * as fakeArticleService from "../../services/fakeArticleService";
 import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import queryString from "query-string";
-import Navbar from "../../components/Navbar/Navbar";
 
 function Home(props) {
   const { sortByCategory = "All" } = queryString.parse(props.location.search);

@@ -12,7 +12,7 @@ test("Navbar contains brand logo and profile picture from user context", async (
   const { getByAltText } = render(wrappedNavbar);
 
   const logo = getByAltText("Summer Camp logo");
-  const profilePhoto = getByAltText("profile photo");
+  const profilePhoto = getByAltText("profile");
 
   expect(logo).toBeInTheDocument();
   expect(profilePhoto).toBeInTheDocument();

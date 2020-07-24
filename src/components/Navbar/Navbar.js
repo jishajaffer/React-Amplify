@@ -9,12 +9,12 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-expand">
-      <a className="navbar-brand">
+      <span className="navbar-brand">
         <img src={logo} height="10%" width="10%" alt="Summer Camp logo"/>
-      </a>
+      </span>
       <ul className="navbar-nav ml-auto">
         <li className="navbar-item">
-          <img src={user.profilePhoto} id="profile-photo" alt="profile photo"/>
+          <img src={user.profilePhoto} id="profile-photo" alt="profile"/>
         </li>
       </ul>
     </nav>
