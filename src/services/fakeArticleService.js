@@ -57,3 +57,5 @@ export function getHighlightedArticles(articles) {
 export function getNonHighlightedArticles(articles) {
   return articles.filter((article) => !article.highlighted);
 }
+
+
