@@ -28,10 +28,11 @@ const Article = (props) => {
 
   return (
     <div className="container">
+      <div className="bg-white mt-4 p-2 rounded shadow-sm">
       {article && (
         <>
           {article.image && (
-            <div className="jumbotron" style={backgroundImg}>
+            <div className="jumbotron article-image" style={backgroundImg}>
             </div>
           )}
           <div className="row">
@@ -80,6 +81,7 @@ const Article = (props) => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
