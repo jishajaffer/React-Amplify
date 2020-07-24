@@ -15,6 +15,7 @@ import * as auth from "./services/userService/userService";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const [user, setUser] = useState({});
@@ -24,7 +25,12 @@ function App() {
     console.log("jwt");
     console.log(jwt);
     if (jwt) {
-      setUser({ name: "Ken Miles" });
+      setUser({
+        name: "Dexter Morgan",
+        isAdmin: true,
+        profilePhoto:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9iUQ5TVznynSsqOdajd-zXGY5hgNWOD9LWg&usqp=CAU",
+      });
     } else {
       setUser(null);
     }
@@ -38,9 +44,23 @@ function App() {
     <>
       <UserProvider value={{ user, setUser }}>
         <Switch>
-          <ProtectedRoute exact path="/article/:id" component={Article}/>
+          <ProtectedRoute
+            exact
+            path="/article/:id"
+            component={(props) => (
+              <>
+                <Navbar />
+                <Article {...props} />
+              </>
+            )}
+          />
           <Route exact path="/" component={Login} />
-          <ProtectedRoute exact path="/home" component={Home} />
+          <ProtectedRoute exact path="/home" component={(props) => (
+              <>
+                <Navbar />
+                <Home {...props} />
+              </>
+            )} />
         </Switch>
       </UserProvider>
     </>
