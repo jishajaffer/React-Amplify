@@ -6,7 +6,7 @@ import "./ArticleCard.css";
 function ArticleCard(props) {
   const { articleId, articleImage, articleTitle, articleContent, articleCategory, highlighted } = props;
   return (
-    <div className="card h-100 shadow-sm">
+    <div className="card bg-white h-100 shadow-sm">
       {articleImage && (
         <img className="card-img-top rounded" alt="Thumbnail [100%x225]" src={articleImage} />
       )}
@@ -21,7 +21,7 @@ function ArticleCard(props) {
         </p>
         <Link className="stretched-link" to={`/article/${articleId}`} />
         <div className="d-flex justify-content-between align-items-center mt-auto">
-          <Link className="btn btn-sm btn-secondary" to={`/home/?sortByCategory=${articleCategory}`}>{articleCategory}</Link>
+          <span class="badge badge-primary p-2">{articleCategory}</span>
           <div className="edit-article">
             <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to="/article/1" >Edit</Link>
             {highlighted && (

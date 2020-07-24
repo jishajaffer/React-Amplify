@@ -10,3 +10,10 @@
     height: 15rem;
     object-fit: cover;
 }
+
+.badge-primary {
+    font-size: 100%;
+    font-weight: 400;
+    background-color: #b5dbff;
+    color: #323232;
+}
