@@ -1,8 +1,20 @@
 export const categories = [
-  "New Joiners",
-  "COVID-19",
-  "Business Update",
-  "Summercamp"
+  {
+    "categoryID": 1,
+    "categoryName": "Summercamp"
+  },
+  {
+    "categoryID": 2,
+    "categoryName": "COVID-19"
+  },
+  {
+    "categoryID": 3,
+    "categoryName": "New Joiners"
+  },
+  {
+    "categoryID": 4,
+    "categoryName": "Business Update"
+  },
 ];
 
 export function getCategories() {

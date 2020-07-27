@@ -7,15 +7,15 @@ import * as fakeArticleService from "../../services/fakeArticleService";
 import "./Home.css";
 
 function Home(props) {
-  const { sortByCategory = "All" } = queryString.parse(props.location.search);
+  const { filterCategory = "All" } = queryString.parse(props.location.search);
 
-  const rawArticles = sortByCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(sortByCategory);
-  const sortedArticlesByDate = rawArticles.sort((a, b) => a.timestamp - b.timestamp);
+  const rawArticles = filterCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(filterCategory);
+  const sortedArticlesByDate = rawArticles.sort((a, b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0));
   // Sorting by subtracting a boolean works because true - false === 1, false - true === -1 and true - true === 0
   const sortedArticles = sortedArticlesByDate.sort((a, b) => b.highlighted - a.highlighted);
 
   const handleFilterCategory = ({ currentTarget: { value } }) => {
-    props.history.push(`/home/?sortByCategory=${value}`);
+    props.history.push(`?filterCategory=${value}`);
   };
 
   const chunkArticles = (articles, size) => {
@@ -37,10 +37,10 @@ function Home(props) {
           <div className="col-12">
             <div className="d-flex rounded p-2 text-dark bg-white shadow-sm justify-content-between">
               <Link className="btn btn-secondary" to="/article/create">Create New Article</Link>
-              <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={sortByCategory}>
+              <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={filterCategory}>
                 <option value="All">All</option>
                 {fakeCategoryService.getCategories().map((category, index) => (
-                  <option key={`category-${index}`} value={category}>{category}</option>
+                  <option key={`category-${index}`} value={category.categoryName}>{category.categoryName}</option>
                 ))}
               </select>
             </div>
@@ -51,7 +51,8 @@ function Home(props) {
             return (
               <div className="row" key={groupIndex}>
                 {articleGroup.map((article, articleIndex) => {
-                  const { id: articleId, image: articleImage, title: articleTitle, content: articleContent, category: articleCategory, highlighted } = article;
+                  const { articleID: articleId, picture: articleImage, title: articleTitle, content: articleContent, categories, highlighted } = article;
+                  const articleCategory = categories[0].categoryName;
                   return (
                     <div className="col-md-6 mb-4" key={articleIndex}>
                       <ArticleCard
