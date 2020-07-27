@@ -97,7 +97,7 @@ const articles = [
 ];
 
 export function getArticlesById(id) {
-  return articles.find((article) => parseInt(article.id) === parseInt(id));
+  return articles.find((article) => parseInt(article.articleID) === parseInt(id));
 }
 
 export function getArticles() {

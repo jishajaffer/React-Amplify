@@ -4,7 +4,7 @@ import highlightedIcon from "./highlighted.png";
 import "./ArticleCard.css";
 
 function ArticleCard(props) {
-  const { articleId, articleImage, articleTitle, articleContent, articleCategory, highlighted } = props;
+  const { articleId, articleImage, articleTitle, articleContent, articleCategory, highlighted, showEdit } = props;
   return (
     <div className="card bg-white h-100 shadow-sm">
       {articleImage && (
@@ -23,7 +23,9 @@ function ArticleCard(props) {
         <div className="d-flex justify-content-between align-items-center mt-auto">
           <span className="badge badge-primary p-2">{articleCategory}</span>
           <div className="edit-article">
-            <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to="/article/1" >Edit</Link>
+            {showEdit && (
+              <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to="/article/1" >Edit</Link>
+            )}
             {highlighted && (
               <img height="32" width="32" src={highlightedIcon} alt="Highlighted"/>
             )}

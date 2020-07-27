@@ -7,6 +7,7 @@ import * as fakeArticleService from "../../services/fakeArticleService";
 import "./Home.css";
 
 function Home(props) {
+  const { permissionLevel: isAdmin } = props.user;
   const { filterCategory = "All" } = queryString.parse(props.location.search);
 
   const rawArticles = filterCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(filterCategory);
@@ -35,8 +36,10 @@ function Home(props) {
       <div className="container">
         <div className="row py-4">
           <div className="col-12">
-            <div className="d-flex rounded p-2 text-dark bg-white shadow-sm justify-content-between">
-              <Link className="btn btn-secondary" to="/article/create">Create New Article</Link>
+            <div className={`d-flex rounded p-2 text-dark bg-white shadow-sm ${!isAdmin ? "justify-content-end" : "justify-content-between"}`}>
+              {isAdmin &&
+                <Link className="btn btn-secondary" to="/article/create">Create New Article</Link>
+              }
               <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={filterCategory}>
                 <option value="All">All</option>
                 {fakeCategoryService.getCategories().map((category, index) => (
@@ -63,6 +66,7 @@ function Home(props) {
                           articleContent={articleContent}
                           articleCategory={articleCategory}
                           highlighted={highlighted}
+                          showEdit={isAdmin}
                         />
                       </div>
                     );
