@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import logo from "../../images/summercamp.png";
 import userContext from "../../context/userContext";
 
-import "./Navbar.css"
+import "./Navbar.css";
 
 function Navbar() {
   const { user } = useContext(userContext);

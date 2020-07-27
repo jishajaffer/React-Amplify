@@ -1,20 +1,11 @@
 import React from "react";
 import * as articleApi from "../../services/fakeArticleService";
-import "./Article.css";
 
 const Article = (props) => {
-
-  
-  const isAdmin = true;
+  const isAdmin = props.match.params.isAdmin;
   const articleId = props.match.params.id;
   const article = articleApi.getArticlesById(articleId);
-  const articleDate = new Date(article.timestamp * 1000);
-  const backgroundImg = {
-    backgroundImage: `url(${ article.image })`,
-       backgroundRepeat  : 'no-repeat',
-       backgroundPosition: 'center',
-       backgroundSize: 'cover',
- }
+
   const handleEdit = () => {
     //update path to relevant page (edit)
     window.location = "/";
@@ -31,24 +22,21 @@ const Article = (props) => {
       {article && (
         <>
           {article.image && (
-            <div className="jumbotron" style={backgroundImg}>
+            <div className="jumbotron">
+              <img
+                data-testid="imageId"
+                src={article.image}
+                className="rounded mx-auto d-block"
+                alt={article.image}
+              />
             </div>
           )}
           <div className="row">
-            <div className="col-md-2">
-              <span className="badge badge-primary p-2">
-                  {article.category}
-              </span>
-              <div>
-                <div className="font-weight-bold">Published:</div>
-                <div>{articleDate.toLocaleDateString()}</div>
-              </div>
+            <div className="col-md-4">
+              <h3 data-testid="categoryId">{article.category}</h3>
             </div>
-
-            <div className="col-md-10">
-              <h1 data-testid="titleId" className="font-weight-bold">
-                {article.title}
-              </h1>
+            <div className="col-md-8">
+              <h1 data-testid="titleId">{article.title}</h1>
               <p className="text-justify" data-testid="contentId">
                 {article.content}
               </p>
