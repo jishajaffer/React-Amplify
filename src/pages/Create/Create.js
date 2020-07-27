@@ -3,6 +3,8 @@ import * as categoryApi from "../../services/fakeCategoryService";
 import Joi from "@hapi/joi";
 import Form from "../../components/Form/Form";
 import * as articleApi from "../../services/fakeArticleService";
+import ImageUploader from "react-images-upload";
+
 
 const Create = (props) => {
   const { id: articleId } = props.match.params;
@@ -35,8 +37,7 @@ const Create = (props) => {
   const formData = articleToFormData(article);
 
   const handleImageChange = event => {
-    const file = event.target.files;
-    alert(file);
+    alert(event);
   };
 
   const initialValidationState = {
@@ -49,7 +50,7 @@ const Create = (props) => {
   const inputs = [
     { name: "title", label: "Title" },
     { name: "content", label: "Content" },
-    { name: "image", label: "Image", type: "file", onChange:{handleImageChange}},
+    // { name: "image", label: "Image", type: "file", onChange:{handleImageChange}},
     {
       name: "categoryId",
       label: "Category",
@@ -87,6 +88,21 @@ const Create = (props) => {
           validationSchema={schema}
           initialValidationState={initialValidationState}
         ></Form>
+
+          <div >
+            <ImageUploader
+              withIcon={false}
+              withPreview={true}
+              label=""
+              buttonText="Upload Images"
+              onChange={handleImageChange}
+              imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
+              maxFileSize={1048576}
+              fileSizeError=" file size is too big"
+            />
+          </div>
+
+
       </div>
     </div>
   );
