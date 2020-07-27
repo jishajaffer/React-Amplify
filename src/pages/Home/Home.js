@@ -79,7 +79,7 @@ function Home(props) {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="text-center">
-                      <button className="btn btn-secondary m-1">Yes</button>
+                      <Link className="btn btn-secondary m-1" to="/?filterCategory=All">Yes</Link>
                       <button className="btn btn-secondary m-1">No... I want to stare at this screen</button>
                     </div>
                   </div>
