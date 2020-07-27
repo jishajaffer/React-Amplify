@@ -89,18 +89,18 @@ const Create = (props) => {
           initialValidationState={initialValidationState}
         ></Form>
 
-          <div >
-            <ImageUploader
-              withIcon={false}
-              withPreview={true}
-              label=""
-              buttonText="Upload Images"
-              onChange={handleImageChange}
-              imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
-              maxFileSize={1048576}
-              fileSizeError=" file size is too big"
-            />
-          </div>
+        <div >
+          <ImageUploader
+            withIcon={false}
+            withPreview={true}
+            label=""
+            buttonText="Upload Images"
+            onChange={handleImageChange}
+            imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
+            maxFileSize={1048576}
+            fileSizeError=" file size is too big"
+          />
+        </div>
 
 
       </div>
