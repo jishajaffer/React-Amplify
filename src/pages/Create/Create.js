@@ -101,18 +101,18 @@ const Create = (props) => {
             fileSizeError=" file size is too big"
           >
             {({ imageList, onImageUpload, onImageRemoveAll }) => (
-          <div>
-            <button onClick={onImageUpload}>Upload images</button>
-            <button onClick={onImageRemoveAll}>Remove all images</button>
-            {imageList.map((image) => (
-              <div key={image.key}>
-                <img src={image.dataURL} />
-                <button onClick={image.onUpdate}>Update</button>
-                <button onClick={image.onRemove}>Remove</button>
+              <div>
+                <button onClick={onImageUpload}>Upload images</button>
+                <button onClick={onImageRemoveAll}>Remove all images</button>
+                {imageList.map((image) => (
+                  <div key={image.key}>
+                    <img src={image.dataURL} />
+                    <button onClick={image.onUpdate}>Update</button>
+                    <button onClick={image.onRemove}>Remove</button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            )}
 
           </ImageUploader>
         </div>
