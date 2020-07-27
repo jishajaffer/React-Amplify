@@ -5,7 +5,6 @@ import Form from "../../components/Form/Form";
 import * as articleApi from "../../services/fakeArticleService";
 import ImageUploader from "react-images-upload";
 
-
 const Create = (props) => {
   const { id: articleId } = props.match.params;
   let article;
@@ -36,8 +35,9 @@ const Create = (props) => {
 
   const formData = articleToFormData(article);
 
-  const handleImageChange = event => {
-    alert(event);
+  const handleImageChange = (imageList) => {
+    // var fileName = e.target;
+    console.log(imageList[0]);
   };
 
   const initialValidationState = {
@@ -89,20 +89,33 @@ const Create = (props) => {
           initialValidationState={initialValidationState}
         ></Form>
 
-        <div >
+        <div>
           <ImageUploader
             withIcon={false}
-            withPreview={true}
+            withPreview={false}
             label=""
-            buttonText="Upload Images"
+            // buttonText="Upload Images"
             onChange={handleImageChange}
             imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
             maxFileSize={1048576}
             fileSizeError=" file size is too big"
-          />
+          >
+            {({ imageList, onImageUpload, onImageRemoveAll }) => (
+          <div>
+            <button onClick={onImageUpload}>Upload images</button>
+            <button onClick={onImageRemoveAll}>Remove all images</button>
+            {imageList.map((image) => (
+              <div key={image.key}>
+                <img src={image.dataURL} />
+                <button onClick={image.onUpdate}>Update</button>
+                <button onClick={image.onRemove}>Remove</button>
+              </div>
+            ))}
+          </div>
+        )}
+
+          </ImageUploader>
         </div>
-
-
       </div>
     </div>
   );
