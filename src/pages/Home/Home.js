@@ -47,28 +47,46 @@ function Home(props) {
           </div>
         </div>
         <section className="article-section bg-white p-2 rounded shadow-sm">
-          {chunkArticles(sortedArticles, 2).map((articleGroup, groupIndex) => {
-            return (
-              <div className="row" key={groupIndex}>
-                {articleGroup.map((article, articleIndex) => {
-                  const { articleID: articleId, picture: articleImage, title: articleTitle, content: articleContent, categories, highlighted } = article;
-                  const articleCategory = categories[0].categoryName;
-                  return (
-                    <div className="col-md-6 mb-4" key={articleIndex}>
-                      <ArticleCard
-                        articleId={articleId}
-                        articleImage={articleImage}
-                        articleTitle={articleTitle}
-                        articleContent={articleContent}
-                        articleCategory={articleCategory}
-                        highlighted={highlighted}
-                      />
+          {sortedArticles.length > 0 ?
+            (chunkArticles(sortedArticles, 2).map((articleGroup, groupIndex) => {
+              return (
+                <div className="row" key={groupIndex}>
+                  {articleGroup.map((article, articleIndex) => {
+                    const { articleID: articleId, picture: articleImage, title: articleTitle, content: articleContent, categories, highlighted } = article;
+                    const articleCategory = categories[0].categoryName;
+                    return (
+                      <div className="col-md-6 mb-4" key={articleIndex}>
+                        <ArticleCard
+                          articleId={articleId}
+                          articleImage={articleImage}
+                          articleTitle={articleTitle}
+                          articleContent={articleContent}
+                          articleCategory={articleCategory}
+                          highlighted={highlighted}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })) : (
+              <div className="d-flex flex-column my-5">
+                <div className="row">
+                  <div className="col-md-12">
+                    <h2 className="text-center">Uh oh we couldn&apos;t find any articles...<br /> go back to viewing all articles?</h2>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="text-center">
+                      <button className="btn btn-secondary m-1">Yes</button>
+                      <button className="btn btn-secondary m-1">No... I want to stare at this screen</button>
                     </div>
-                  );
-                })}
+                  </div>
+                </div>
               </div>
-            );
-          })}
+            )
+          }
         </section>
       </div>
     </>
