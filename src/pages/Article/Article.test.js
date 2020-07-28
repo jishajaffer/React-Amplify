@@ -3,8 +3,12 @@ import { fireEvent, render, cleanup } from "@testing-library/react";
 import Article from "./Article";
 
 test("renders article title if admin", async () => {
+  const user = {
+    permissionLevel: "admin",
+  };
+
   const { findByTestId } = render(
-    <Article match={{ params: { id: 1, isAdmin: true } }} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
@@ -23,8 +27,12 @@ test("renders article title if admin", async () => {
 });
 
 test("renders article title for non-admin user", async () => {
+  const user = {
+    permissionLevel: "user",
+  };
+
   const { findByTestId, queryByText } = render(
-    <Article match={{ params: { id: 1, isAdmin: false } }} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
@@ -43,8 +51,12 @@ test("renders article title for non-admin user", async () => {
 });
 
 test("No rendering if its invalid id", () => {
+  const user = {
+    permissionLevel: "admin",
+  };
+
   const { queryByText, debug } = render(
-    <Article match={{ params: { id: 0, isAdmin: true } }} />
+    <Article match={{ params: { id: 0 } }} user={user} />
   );
 
   debug();
@@ -65,13 +77,14 @@ test("No rendering if its invalid id", () => {
 });
 
 test("Button capture test for delete", async () => {
+  const user = {
+    permissionLevel: "admin",
+  };
+
   function handleDelete() {}
 
   const { findByTestId } = render(
-    <Article
-      onClick={handleDelete}
-      match={{ params: { id: 1, isAdmin: true } }}
-    />
+    <Article onClick={handleDelete} match={{ params: { id: 1 } }} user={user} />
   );
 
   const deleteButton = await findByTestId("buttonDelete");
@@ -79,13 +92,14 @@ test("Button capture test for delete", async () => {
 });
 
 test("Button capture test for edit", async () => {
+  const user = {
+    permissionLevel: "admin",
+  };
+
   function handleEdit() {}
 
   const { findByTestId } = render(
-    <Article
-      onClick={handleEdit}
-      match={{ params: { id: 1, isAdmin: true } }}
-    />
+    <Article onClick={handleEdit} match={{ params: { id: 1 } }} user={user} />
   );
 
   const editButton = await findByTestId("buttonEdit");
