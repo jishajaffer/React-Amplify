@@ -10,7 +10,6 @@ function Home(props) {
   const { permissionLevel } = props.user;
   const { filterCategory = "All" } = queryString.parse(props.location.search);
   const isAdmin = permissionLevel === "admin";
-
   const rawArticles = filterCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(filterCategory);
   const sortedArticlesByDate = rawArticles.sort((a, b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0));
   // Sorting by subtracting a boolean works because true - false === 1, false - true === -1 and true - true === 0

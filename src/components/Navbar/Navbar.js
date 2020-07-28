@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React /*{ useContext }*/ from "react";
 import logo from "../../images/summercamp.png";
-import userContext from "../../context/userContext";
+//import userContext from "../../context/userContext";
+import womanPic from "../../images/woman.png";
 
 import "./Navbar.css";
 
 function Navbar() {
-  const { user } = useContext(userContext);
+  //const { user } = useContext(userContext);
 
   return (
     <nav className="navbar bg-white navbar-expand">
@@ -14,7 +15,7 @@ function Navbar() {
       </span>
       <ul className="navbar-nav ml-auto">
         <li className="navbar-item">
-          <img src={user.profilePhoto} id="profile-photo" alt="profile"/>
+          <img src={womanPic} id="profile-photo" alt="profile"/>
         </li>
       </ul>
     </nav>
