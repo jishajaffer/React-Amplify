@@ -9,7 +9,7 @@ const Login = (props) => {
     console.log(response);
     auth.authenticateUser(response.token);
     if (auth.getCurrentUser()) {
-      props.history.push("/home");
+      props.history.push("/");
     }
   };
 
