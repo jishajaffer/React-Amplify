@@ -7,8 +7,9 @@ import * as fakeArticleService from "../../services/fakeArticleService";
 import "./Home.css";
 
 function Home(props) {
-  const { permissionLevel: isAdmin } = props.user;
+  const { permissionLevel } = props.user;
   const { filterCategory = "All" } = queryString.parse(props.location.search);
+  const isAdmin = permissionLevel === "admin";
 
   const rawArticles = filterCategory === "All" ? fakeArticleService.getArticles() : fakeArticleService.getArticlesByCategory(filterCategory);
   const sortedArticlesByDate = rawArticles.sort((a, b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0));
