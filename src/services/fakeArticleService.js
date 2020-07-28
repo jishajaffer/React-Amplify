@@ -107,3 +107,5 @@ export function getArticles() {
 export function getArticlesByCategory(category) {
   return articles.filter((article) => article.categories[0].categoryName === category);
 }
+
+

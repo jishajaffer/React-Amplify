@@ -2,10 +2,14 @@ import React from "react";
 import { fireEvent, render, cleanup } from "@testing-library/react";
 import Article from "./Article";
 
-test("renders article title", async () => {
-  const isAdmin = true;
+test("renders article title if admin", async () => {
+  const user = {
+    permissionLevel: "admin",
+  };
 
-  const { findByTestId } = render(<Article match={{ params: { id: 1 } }} />);
+  const { findByTestId } = render(
+    <Article match={{ params: { id: 1 } }} user={user} />
+  );
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
   const content = await findByTestId("contentId");
@@ -16,18 +20,43 @@ test("renders article title", async () => {
   expect(content).toBeInTheDocument();
   expect(category).toBeInTheDocument();
 
-  //If Admin
-  if (isAdmin) {
-    const editButton = await findByTestId("buttonEdit");
-    const deleteButton = await findByTestId("buttonDelete");
-    expect(editButton).toBeInTheDocument();
-    expect(deleteButton).toBeInTheDocument();
-  }
+  const editButton = await findByTestId("buttonEdit");
+  const deleteButton = await findByTestId("buttonDelete");
+  expect(editButton).toBeInTheDocument();
+  expect(deleteButton).toBeInTheDocument();
+});
+
+test("renders article title for non-admin user", async () => {
+  const user = {
+    permissionLevel: "user",
+  };
+
+  const { findByTestId, queryByText } = render(
+    <Article match={{ params: { id: 1 } }} user={user} />
+  );
+  const title = await findByTestId("titleId");
+  const image = await findByTestId("imageId");
+  const content = await findByTestId("contentId");
+  const category = await findByTestId("categoryId");
+
+  expect(title).toBeInTheDocument();
+  expect(image).toBeInTheDocument();
+  expect(content).toBeInTheDocument();
+  expect(category).toBeInTheDocument();
+
+  const editButton = queryByText("buttonEdit");
+  const deleteButton = queryByText("buttonDelete");
+  expect(editButton).not.toBeInTheDocument();
+  expect(deleteButton).not.toBeInTheDocument();
 });
 
 test("No rendering if its invalid id", () => {
+  const user = {
+    permissionLevel: "admin",
+  };
+
   const { queryByText, debug } = render(
-    <Article match={{ params: { id: 0 } }} />
+    <Article match={{ params: { id: 0 } }} user={user} />
   );
 
   debug();
@@ -48,27 +77,30 @@ test("No rendering if its invalid id", () => {
 });
 
 test("Button capture test for delete", async () => {
-  function handleDelete() {
-  }
+  const user = {
+    permissionLevel: "admin",
+  };
 
   const { findByTestId } = render(
-    <Article onClick={handleDelete} match={{ params: { id: 1 } }} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
 
   const deleteButton = await findByTestId("buttonDelete");
   fireEvent.click(deleteButton);
+  expect(window.location.pathname).toBe("/");
 });
 
 test("Button capture test for edit", async () => {
-  function handleEdit() {
-  }
+  const user = {
+    permissionLevel: "admin",
+  };
 
   const { findByTestId } = render(
-    <Article onClick={handleEdit} match={{ params: { id: 1 } }} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
-
   const editButton = await findByTestId("buttonEdit");
   fireEvent.click(editButton);
+  expect(window.location.pathname).toBe("/");
 });
 
 afterEach(cleanup);
