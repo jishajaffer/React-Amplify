@@ -1,0 +1,11 @@
+#profile-photo {
+    vertical-align: middle;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.navbar-item {
+    display: flex;
+    flex-direction: row-reverse;
+}

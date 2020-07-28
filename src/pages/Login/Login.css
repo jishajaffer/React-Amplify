@@ -1,7 +1,11 @@
 #googleLoginButton {
-    padding-top: 6rem;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
 }
 
-#logoContainer {
-    padding-top: 8rem;
+.login-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;  
 }
