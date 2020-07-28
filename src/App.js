@@ -27,7 +27,7 @@ function App() {
     if (jwt) {
       setUser({
         name: "Dexter Morgan",
-        isAdmin: true,
+        permissionLevel: "admin",
         profilePhoto:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9iUQ5TVznynSsqOdajd-zXGY5hgNWOD9LWg&usqp=CAU",
       });
@@ -54,8 +54,8 @@ function App() {
               </>
             )}
           />
-          <Route exact path="/" component={Login} />
-          <ProtectedRoute exact path="/home" component={(props) => (
+          <Route exact path="/login" component={Login} />
+          <ProtectedRoute exact path="/" component={(props) => (
             <>
               <Navbar />
               <Home {...props} />

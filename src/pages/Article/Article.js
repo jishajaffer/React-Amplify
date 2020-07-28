@@ -1,13 +1,15 @@
 import React from "react";
 import * as articleApi from "../../services/fakeArticleService";
-import "./Article.css";
 
 const Article = (props) => {
 
-  
-  const isAdmin = true;
+  const { permissionLevel } = props.user;
+  const isAdmin = permissionLevel === "admin";
+
   const articleId = props.match.params.id;
+  
   const article = articleApi.getArticlesById(articleId);
+
   const articleDate = new Date(article.timestamp * 1000);
   const backgroundImg = {
     backgroundImage: `url(${ article.image })`,
@@ -23,7 +25,7 @@ const Article = (props) => {
   const handleDelete = () => {
     //Call api delete article
     //Update path to relevant page (home)
-    window.location = "/home";
+    window.location = "/";
   };
 
   return (
