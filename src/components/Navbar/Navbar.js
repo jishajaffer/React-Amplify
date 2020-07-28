@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import logo from "../../images/summercamp.png";
 import userContext from "../../context/userContext";
 
-import "./Navbar.css"
+import "./Navbar.css";
 
 function Navbar() {
   const { user } = useContext(userContext);
 
   return (
-    <nav className="navbar navbar-expand">
+    <nav className="navbar bg-white navbar-expand">
       <span className="navbar-brand">
         <img src={logo} height="10%" width="10%" alt="Summer Camp logo"/>
       </span>
