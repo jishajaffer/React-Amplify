@@ -38,7 +38,7 @@ function Home(props) {
           <div className="col-12">
             <div className={`d-flex rounded p-2 text-dark bg-white shadow-sm ${!isAdmin ? "justify-content-end" : "justify-content-between"}`}>
               {isAdmin &&
-                <Link className="btn btn-secondary" to="/article/create">Create New Article</Link>
+                <Link className="btn btn-secondary" to="/article/new">Create New Article</Link>
               }
               <select className="custom-select align-self-center ml-2" onChange={handleFilterCategory} value={filterCategory}>
                 <option value="All">All</option>

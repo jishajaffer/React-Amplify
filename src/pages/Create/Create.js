@@ -18,7 +18,7 @@ const Create = (props) => {
       id: "",
       title: "",
       content: "",
-      category: "",
+      categoryId: "",
     };
 
     if (article) {
@@ -43,7 +43,7 @@ const Create = (props) => {
   const initialValidationState = {
     title: null,
     content: null,
-    image: null,
+    imageUrl: null,
     categoryId: null,
   };
 
@@ -57,12 +57,16 @@ const Create = (props) => {
       type: "select",
       options: categoryApi.getCategoriesForSelect(),
     },
+    {
+      name: "imageUrl",
+      label: "Image Url"
+    }
   ];
 
   const schema = {
     title: Joi.string().required().label("Title"),
     content: Joi.string().required().label("Content"),
-    image: Joi.string().label("Image"),
+    imageUrl: Joi.string().label("Image Url"),
     categoryId: Joi.string().required().label("Category"),
   };
 
@@ -88,34 +92,6 @@ const Create = (props) => {
           validationSchema={schema}
           initialValidationState={initialValidationState}
         ></Form>
-
-        <div>
-          <ImageUploader
-            withIcon={false}
-            withPreview={false}
-            label=""
-            // buttonText="Upload Images"
-            onChange={handleImageChange}
-            imgExtension={[".jpg", ".gif", ".png", ".gif", ".svg"]}
-            maxFileSize={1048576}
-            fileSizeError=" file size is too big"
-          >
-            {({ imageList, onImageUpload, onImageRemoveAll }) => (
-              <div>
-                <button onClick={onImageUpload}>Upload images</button>
-                <button onClick={onImageRemoveAll}>Remove all images</button>
-                {imageList.map((image) => (
-                  <div key={image.key}>
-                    <img src={image.dataURL} />
-                    <button onClick={image.onUpdate}>Update</button>
-                    <button onClick={image.onRemove}>Remove</button>
-                  </div>
-                ))}
-              </div>
-            )}
-
-          </ImageUploader>
-        </div>
       </div>
     </div>
   );

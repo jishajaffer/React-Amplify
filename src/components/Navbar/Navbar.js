@@ -4,6 +4,7 @@ import logo from "../../images/summercamp.png";
 import womanPic from "../../images/woman.png";
 
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   //const { user } = useContext(userContext);
@@ -11,7 +12,7 @@ function Navbar() {
   return (
     <nav className="navbar bg-white navbar-expand">
       <span className="navbar-brand">
-        <img src={logo} height="10%" width="10%" alt="Summer Camp logo"/>
+        <Link to="/"><img src={logo} height="10%" width="10%" alt="Summer Camp logo"/></Link>
       </span>
       <ul className="navbar-nav ml-auto">
         <li className="navbar-item">

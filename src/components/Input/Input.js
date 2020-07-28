@@ -4,6 +4,7 @@ function Input({
   label,
   value,
   type,
+  error,
   onChange,
   shouldAutofocus = false,
 }) {
@@ -19,6 +20,7 @@ function Input({
         autoFocus={shouldAutofocus}
         value={value}
       />
+      {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
 }

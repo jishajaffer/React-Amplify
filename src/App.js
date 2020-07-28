@@ -43,6 +43,16 @@ function App() {
     <>
       <UserProvider value={{ user, setUser }}>
         <Switch>
+        <ProtectedRoute
+            exact
+            path="/article/new"
+            component={(props) => (
+              <>
+                <Navbar />
+                <Create {...props} />
+              </>
+            )}
+          />
           <ProtectedRoute
             exact
             path="/article/:id"
@@ -54,12 +64,6 @@ function App() {
             )}
           />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/create" component={(props) => (
-            <>
-              <Navbar />
-              <Create {...props} />
-            </>
-          )} />
           <ProtectedRoute exact path="/" component={(props) => (
             <>
               <Navbar />
