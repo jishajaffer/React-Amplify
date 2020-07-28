@@ -2,8 +2,12 @@ import React from "react";
 import * as articleApi from "../../services/fakeArticleService";
 
 const Article = (props) => {
-  const isAdmin = props.match.params.isAdmin;
+
+  const { permissionLevel } = props.user;
+  const isAdmin = permissionLevel === "admin";
+
   const articleId = props.match.params.id;
+  
   const article = articleApi.getArticlesById(articleId);
 
   const handleEdit = () => {
