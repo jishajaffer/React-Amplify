@@ -81,14 +81,13 @@ test("Button capture test for delete", async () => {
     permissionLevel: "admin",
   };
 
-  function handleDelete() {}
-
   const { findByTestId } = render(
-    <Article onClick={handleDelete} match={{ params: { id: 1 } }} user={user} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
 
   const deleteButton = await findByTestId("buttonDelete");
   fireEvent.click(deleteButton);
+  expect(window.location.pathname).toBe("/");
 });
 
 test("Button capture test for edit", async () => {
@@ -96,14 +95,12 @@ test("Button capture test for edit", async () => {
     permissionLevel: "admin",
   };
 
-  function handleEdit() {}
-
   const { findByTestId } = render(
-    <Article onClick={handleEdit} match={{ params: { id: 1 } }} user={user} />
+    <Article match={{ params: { id: 1 } }} user={user} />
   );
-
   const editButton = await findByTestId("buttonEdit");
   fireEvent.click(editButton);
+  expect(window.location.pathname).toBe("/");
 });
 
 afterEach(cleanup);

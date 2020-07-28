@@ -18,7 +18,7 @@ const Article = (props) => {
   const handleDelete = () => {
     //Call api delete article
     //Update path to relevant page (home)
-    window.location = "/home";
+    window.location = "/";
   };
 
   return (
