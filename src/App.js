@@ -54,8 +54,8 @@ function App() {
               </>
             )}
           />
-          <Route exact path="/" component={Login} />
-          <ProtectedRoute exact path="/home" component={(props) => (
+          <Route exact path="/login" component={Login} />
+          <ProtectedRoute exact path="/" component={(props) => (
             <>
               <Navbar />
               <Home {...props} />

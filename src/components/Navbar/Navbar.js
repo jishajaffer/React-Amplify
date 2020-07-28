@@ -8,7 +8,7 @@ function Navbar() {
   const { user } = useContext(userContext);
 
   return (
-    <nav className="navbar navbar-expand">
+    <nav className="navbar bg-white navbar-expand">
       <span className="navbar-brand">
         <img src={logo} height="10%" width="10%" alt="Summer Camp logo"/>
       </span>
