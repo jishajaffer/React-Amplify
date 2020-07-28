@@ -3,7 +3,6 @@ import * as categoryApi from "../../services/fakeCategoryService";
 import Joi from "@hapi/joi";
 import Form from "../../components/Form/Form";
 import * as articleApi from "../../services/fakeArticleService";
-import ImageUploader from "react-images-upload";
 
 const Create = (props) => {
   const { id: articleId } = props.match.params;
@@ -19,6 +18,7 @@ const Create = (props) => {
       title: "",
       content: "",
       categoryId: "",
+      imageUrl: "",
     };
 
     if (article) {
@@ -27,6 +27,7 @@ const Create = (props) => {
         title: article.title,
         content: article.content,
         category: article.category.id,
+        imageUrl: article.picture,
       };
     }
 
@@ -35,10 +36,10 @@ const Create = (props) => {
 
   const formData = articleToFormData(article);
 
-  const handleImageChange = (image) => {
-    // var fileName = e.target;
-    console.log(image);
-  };
+  // const handleImageChange = (image) => {
+  //   // var fileName = e.target;
+  //   console.log(image);
+  // };
 
   const initialValidationState = {
     title: null,
@@ -49,8 +50,11 @@ const Create = (props) => {
 
   const inputs = [
     { name: "title", label: "Title" },
-    { name: "content", label: "Content" },
-    // { name: "image", label: "Image", type: "file", onChange:{handleImageChange}},
+    {
+      name: "content",
+      label: "Content",
+      type: "textarea",
+    },
     {
       name: "categoryId",
       label: "Category",
@@ -59,8 +63,8 @@ const Create = (props) => {
     },
     {
       name: "imageUrl",
-      label: "Image Url"
-    }
+      label: "Image Url",
+    },
   ];
 
   const schema = {

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Joi from "@hapi/joi";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
+import TextArea from "../TextArea/TextArea";
+
 function Form({
   inputs,
   initialData,
@@ -14,6 +16,7 @@ function Form({
   const [validationErrors, setValidationErrors] = useState(
     initialValidationState
   );
+
   const handleChange = ({ currentTarget: { name: propertyName, value } }) => {
     const currentAccountState = { ...formData };
     currentAccountState[propertyName] = value;
@@ -42,10 +45,7 @@ function Form({
     const options = { abortEarly: false };
     const { error } = Joi.object(schema).validate(formData, options);
     const errors = {};
-    error &&
-      error.details.map((item) => 
-        errors[item.path[0]] = item.message
-      );
+    error && error.details.map((item) => (errors[item.path[0]] = item.message));
     return errors;
   };
   const handleSubmit = (e) => {
@@ -75,6 +75,17 @@ function Form({
                 onChange={handleChange}
                 error={validationErrors[name]}
               ></Select>
+            );
+          case "textarea":
+            return (
+              <TextArea
+                key={name}
+                name={name}
+                label={label}
+                value={formData.content}
+                onChange={handleChange}
+                error={validationErrors[name]}
+              ></TextArea>
             );
           default:
             return (

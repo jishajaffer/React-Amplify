@@ -43,7 +43,7 @@ function App() {
     <>
       <UserProvider value={{ user, setUser }}>
         <Switch>
-        <ProtectedRoute
+          <ProtectedRoute
             exact
             path="/article/new"
             component={(props) => (

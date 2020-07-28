@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function FilePicker() {
-    return (
-        <>
+  return (
+    <>
             
-        </>
-    )
+    </>
+  );
 }
 
-export default FilePicker
+export default FilePicker;
