@@ -34,7 +34,7 @@ function Home(props) {
   return (
     <>
       <div className="container">
-        <div className="row py-4">
+        <div className="row mt-4">
           <div className="col-12">
             <div className={`d-flex rounded p-2 text-dark bg-white shadow-sm ${!isAdmin ? "justify-content-end" : "justify-content-between"}`}>
               {isAdmin &&
@@ -49,7 +49,7 @@ function Home(props) {
             </div>
           </div>
         </div>
-        <section className="article-section bg-white p-2 rounded shadow-sm">
+        <section className="article-section my-4 bg-white p-2 rounded shadow-sm">
           {sortedArticles.length > 0 ?
             (chunkArticles(sortedArticles, 2).map((articleGroup, groupIndex) => {
               return (
