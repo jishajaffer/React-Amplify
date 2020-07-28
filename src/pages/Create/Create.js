@@ -35,9 +35,9 @@ const Create = (props) => {
 
   const formData = articleToFormData(article);
 
-  const handleImageChange = (imageList) => {
+  const handleImageChange = (image) => {
     // var fileName = e.target;
-    console.log(imageList[0]);
+    console.log(image);
   };
 
   const initialValidationState = {

@@ -22,10 +22,10 @@ export function getCategories() {
 }
 
 export function getCategoriesForSelect(){
-  const selectCategories = [{id: 1, name: categories[0]},
-    {id: 2, name: categories[1]},
-    {id: 3, name: categories[2]},
-    {id: 4, name: categories[3]}
+  const selectCategories = [{id: 1, name: categories[0].categoryName},
+    {id: 2, name: categories[1].categoryName},
+    {id: 3, name: categories[2].categoryName},
+    {id: 4, name: categories[3].categoryName}
   ];
   return selectCategories;
 }
