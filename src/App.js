@@ -10,7 +10,7 @@ import { UserProvider } from "./context/userContext";
 import Article from "./pages/Article/Article";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import NotFound from './pages/NotFound/Notfound'
+import NotFound from "./pages/NotFound/Notfound";
 
 // Services
 import * as auth from "./services/userService/userService";
