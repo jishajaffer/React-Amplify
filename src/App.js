@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-import Article from "./pages/Article/Article";
+
 
 // Context
 import { UserProvider } from "./context/userContext";
 
 // Pages
+import Article from "./pages/Article/Article";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import NotFound from './pages/NotFound/Notfound'
 
 // Services
 import * as auth from "./services/userService/userService";
@@ -61,6 +63,8 @@ function App() {
               <Home {...props} />
             </>
           )} />
+          <Route path="/not-found" component={NotFound}></Route>
+          <Redirect to="/not-found"></Redirect>
         </Switch>
       </UserProvider>
     </>
