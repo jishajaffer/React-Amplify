@@ -91,7 +91,7 @@ const Create = (props) => {
   };
 
   const doCancel = () => {
-    props.history.push("/");
+    props.history.goBack();
   };
 
   const submitButton = {

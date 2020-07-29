@@ -19,12 +19,12 @@ function ArticleCard(props) {
             articleContent.length > 600 ? `${articleContent.substring(0, 600)}...` : articleContent
           )}
         </p>
-        <Link className="stretched-link" to={`/article/${articleId}`} />
+        <Link className="stretched-link" to={`/articles/${articleId}`} />
         <div className="d-flex justify-content-between align-items-center mt-auto">
           <span className="badge badge-primary p-2">{articleCategory}</span>
           <div className="edit-article">
             {showEdit && (
-              <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to={"/articles/1/edit"} >Edit</Link>
+              <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to={`/articles/${articleId}/edit`} >Edit</Link>
             )}
             {highlighted && (
               <img height="32" width="32" src={highlightedIcon} alt="Highlighted"/>
