@@ -4,6 +4,7 @@ import Input from "../Input/Input";
 import Select from "../Select/Select";
 import TextArea from "../TextArea/TextArea";
 
+import Checkbox from "../Checkbox/Checkbox";
 function Form({
   inputs,
   initialData,
@@ -11,15 +12,23 @@ function Form({
   initialValidationState,
   submitButton,
   doSubmit,
+  cancelButton,
+  doCancel
 }) {
   const [formData, setFormData] = useState(initialData);
   const [validationErrors, setValidationErrors] = useState(
     initialValidationState
   );
-
-  const handleChange = ({ currentTarget: { name: propertyName, value } }) => {
+  const handleChange = ({
+    currentTarget: { name: propertyName, value, checked },
+  }) => {
+    console.log(propertyName + " " + value + " " + checked);
     const currentAccountState = { ...formData };
-    currentAccountState[propertyName] = value;
+    if (propertyName === "highlighted") {
+      currentAccountState[propertyName] = checked;
+    } else {
+      currentAccountState[propertyName] = value;
+    }
     const errors = validateProperty(
       propertyName,
       currentAccountState,
@@ -53,62 +62,89 @@ function Form({
     setValidationErrors(validateForm());
     doSubmit(formData);
   };
+
+  const handleCancel = (e) => {
+    e.preventDefault();
+    doCancel();
+  }
   const isFormValid = Object.keys(validationErrors).length === 0;
   const {
-    buttonLabel = "Submit",
-    buttonStyling = "btn btn-primary",
+    submitLabel = "Submit",
+    submitStyling = "btn btn-primary mr-2 mt-2",
   } = submitButton;
+  const {
+    cancelLabel = "Cancel",
+    cancelStyling = "btn btn-primary mr-2 mt-2",
+  } = cancelButton;
   return (
     <>
       <form>
         {inputs.map((input) => {
           const { name, label, type = "text", autofocus = false } = input;
           switch (type) {
-          case "select":
-            return (
-              <Select
-                key={name}
-                name={name}
-                label={label}
-                value={formData[name]}
-                options={input.options}
-                onChange={handleChange}
-                error={validationErrors[name]}
-              ></Select>
-            );
-          case "textarea":
-            return (
-              <TextArea
-                key={name}
-                name={name}
-                label={label}
-                value={formData.content}
-                onChange={handleChange}
-                error={validationErrors[name]}
-              ></TextArea>
-            );
-          default:
-            return (
-              <Input
-                key={name}
-                name={name}
-                label={label}
-                shouldAutofocus={autofocus}
-                value={formData[name]}
-                type={type}
-                onChange={handleChange}
-                error={validationErrors[name]}
-              ></Input>
-            );
+            case "select":
+              return (
+                <Select
+                  key={name}
+                  name={name}
+                  label={label}
+                  value={formData[name]}
+                  options={input.options}
+                  onChange={handleChange}
+                  error={validationErrors[name]}
+                ></Select>
+              );
+            case "textarea":
+              return (
+                <TextArea
+                  key={name}
+                  name={name}
+                  label={label}
+                  value={formData.content}
+                  onChange={handleChange}
+                  error={validationErrors[name]}
+                ></TextArea>
+              );
+            case "checkbox":
+              return (
+                <Checkbox
+                  key={name}
+                  name={name}
+                  label={label}
+                  value={formData[name]}
+                  onChange={handleChange}
+                  error={validationErrors[name]}
+                />
+              );
+            default:
+              return (
+                <Input
+                  key={name}
+                  name={name}
+                  label={label}
+                  shouldAutofocus={autofocus}
+                  value={formData[name]}
+                  type={type}
+                  onChange={handleChange}
+                  error={validationErrors[name]}
+                ></Input>
+              );
           }
         })}
         <button
           disabled={!isFormValid}
           onClick={handleSubmit}
           type="submit"
-          className={buttonStyling}
+          className={submitStyling}
         >
-          {buttonLabel}
+          {submitLabel}
+        </button>
+        <button
+          onClick={handleCancel}
+          type="submit"
+          className={cancelStyling}
+        >
+          {cancelLabel}
         </button>
       </form>
     </>

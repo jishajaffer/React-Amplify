@@ -24,7 +24,7 @@ function ArticleCard(props) {
           <span className="badge badge-primary p-2">{articleCategory}</span>
           <div className="edit-article">
             {showEdit && (
-              <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to="/article/1" >Edit</Link>
+              <Link className={`btn btn-sm btn-outline-secondary ${highlighted && "mr-2"}`} to={"/articles/1/edit"} >Edit</Link>
             )}
             {highlighted && (
               <img height="32" width="32" src={highlightedIcon} alt="Highlighted"/>

@@ -12,23 +12,33 @@ const Create = (props) => {
     article = articleApi.getArticlesById(articleId);
   }
 
+  let initialValidationState = {
+    title: null,
+    content: null,
+    categoryId: null,
+  };
+
   const articleToFormData = (article) => {
     let formData = {
       id: "",
       title: "",
       content: "",
       categoryId: "",
+      highlighted: false,
       imageUrl: "",
     };
 
     if (article) {
       formData = {
-        id: article.id,
+        id: article.articleID,
         title: article.title,
         content: article.content,
-        category: article.category.id,
+        categoryId: article.categories[0].categoryID,
         imageUrl: article.picture,
+        highlighted: article.highlighted,
       };
+
+      initialValidationState = {};
     }
 
     return formData;
@@ -40,13 +50,6 @@ const Create = (props) => {
   //   // var fileName = e.target;
   //   console.log(image);
   // };
-
-  const initialValidationState = {
-    title: null,
-    content: null,
-    imageUrl: null,
-    categoryId: null,
-  };
 
   const inputs = [
     { name: "title", label: "Title" },
@@ -65,32 +68,48 @@ const Create = (props) => {
       name: "imageUrl",
       label: "Image Url",
     },
+    {
+      name: "highlighted",
+      label: "Highlight",
+      type: "checkbox",
+    },
   ];
 
   const schema = {
     title: Joi.string().required().label("Title"),
     content: Joi.string().required().label("Content"),
-    imageUrl: Joi.string().label("Image Url"),
+    imageUrl: Joi.string().allow("").label("Image Url"),
     categoryId: Joi.string().required().label("Category"),
+    highlighted: Joi.bool().required().label("Highlight"),
   };
 
   const doSubmit = (article) => {
     console.log("Submitted");
     console.log("Article: ", article);
     // call create article api
-    props.history.replace("/home");
+    props.history.replace("/");
+  };
+
+  const doCancel = () => {
+    props.history.push("/");
   };
 
   const submitButton = {
-    label: "Save",
+    submitLabel: "Publish",
+  };
+
+  const cancelButton = {
+    cancelLabel: "Cancel",
   };
 
   return (
     <div className="container">
-      <div>
+      <div className="my-4 bg-white p-2 rounded shadow-sm">
         <Form
           inputs={inputs}
           submitButton={submitButton}
+          cancelButton={cancelButton}
+          doCancel={doCancel}
           doSubmit={doSubmit}
           initialData={formData}
           validationSchema={schema}
