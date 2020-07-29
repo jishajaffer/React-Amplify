@@ -11,7 +11,7 @@ const Login = (props) => {
     let currentUser = auth.getCurrentUser();
     console.log('cur' + currentUser);
     if (currentUser) {
-      props.history.push("/");
+      window.location = "/";
     }
   };
 

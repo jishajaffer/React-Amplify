@@ -19,7 +19,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
 
   const initState = () => {
     const jwt = auth.getCurrentUser();
@@ -30,7 +30,6 @@ function App() {
         profilePhoto:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9iUQ5TVznynSsqOdajd-zXGY5hgNWOD9LWg&usqp=CAU",
       });
-      console.log('user' + user);
     } else {
       setUser(null);
     }
@@ -75,12 +74,16 @@ function App() {
             )}
           />
           <Route exact path="/login" component={Login} />
-          <ProtectedRoute exact path="/" component={(props) => (
-            <>
-              <Navbar />
-              <Home {...props} />
-            </>
-          )} />
+          <ProtectedRoute
+            exact
+            path="/"
+            component={(props) => (
+              <>
+                <Navbar />
+                <Home {...props} />
+              </>
+            )}
+          />
         </Switch>
       </UserProvider>
     </>
