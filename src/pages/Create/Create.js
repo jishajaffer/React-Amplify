@@ -78,7 +78,7 @@ const Create = (props) => {
     console.log("Submitted");
     console.log("Article: ", article);
     // call create article api
-    props.history.replace("/home");
+    props.history.replace("/");
   };
 
   const submitButton = {
