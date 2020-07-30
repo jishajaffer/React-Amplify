@@ -66,7 +66,7 @@ function Form({
   const handleCancel = (e) => {
     e.preventDefault();
     doCancel();
-  }
+  };
   const isFormValid = Object.keys(validationErrors).length === 0;
   const {
     submitLabel = "Submit",
@@ -82,53 +82,53 @@ function Form({
         {inputs.map((input) => {
           const { name, label, type = "text", autofocus = false } = input;
           switch (type) {
-            case "select":
-              return (
-                <Select
-                  key={name}
-                  name={name}
-                  label={label}
-                  value={formData[name]}
-                  options={input.options}
-                  onChange={handleChange}
-                  error={validationErrors[name]}
-                ></Select>
-              );
-            case "textarea":
-              return (
-                <TextArea
-                  key={name}
-                  name={name}
-                  label={label}
-                  value={formData.content}
-                  onChange={handleChange}
-                  error={validationErrors[name]}
-                ></TextArea>
-              );
-            case "checkbox":
-              return (
-                <Checkbox
-                  key={name}
-                  name={name}
-                  label={label}
-                  value={formData[name]}
-                  onChange={handleChange}
-                  error={validationErrors[name]}
-                />
-              );
-            default:
-              return (
-                <Input
-                  key={name}
-                  name={name}
-                  label={label}
-                  shouldAutofocus={autofocus}
-                  value={formData[name]}
-                  type={type}
-                  onChange={handleChange}
-                  error={validationErrors[name]}
-                ></Input>
-              );
+          case "select":
+            return (
+              <Select
+                key={name}
+                name={name}
+                label={label}
+                value={formData[name]}
+                options={input.options}
+                onChange={handleChange}
+                error={validationErrors[name]}
+              ></Select>
+            );
+          case "textarea":
+            return (
+              <TextArea
+                key={name}
+                name={name}
+                label={label}
+                value={formData.content}
+                onChange={handleChange}
+                error={validationErrors[name]}
+              ></TextArea>
+            );
+          case "checkbox":
+            return (
+              <Checkbox
+                key={name}
+                name={name}
+                label={label}
+                value={formData[name]}
+                onChange={handleChange}
+                error={validationErrors[name]}
+              />
+            );
+          default:
+            return (
+              <Input
+                key={name}
+                name={name}
+                label={label}
+                shouldAutofocus={autofocus}
+                value={formData[name]}
+                type={type}
+                onChange={handleChange}
+                error={validationErrors[name]}
+              ></Input>
+            );
           }
         })}
         <button

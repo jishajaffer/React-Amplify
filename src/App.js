@@ -12,7 +12,7 @@ import Article from "./pages/Article/Article";
 import Create from "./pages/Create/Create";
 
 // Services
-import * as auth from "./services/userService/userService";
+import * as authService from "./services/common/authService";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -21,7 +21,7 @@ import Navbar from "./components/Navbar/Navbar";
 function App() {
   const [user, setUser] = useState({});
 
-  const initState = () => {
+  /*const initState = () => {
     const jwt = auth.getCurrentUser();
     if (jwt) {
       setUser({
@@ -33,6 +33,12 @@ function App() {
     } else {
       setUser(null);
     }
+  };*/
+
+  const initState = async () => {
+    authService.getCurrentUser().then(validatedUser => {
+      setUser(validatedUser);
+    });
   };
 
   useEffect(() => {

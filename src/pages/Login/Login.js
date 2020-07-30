@@ -2,16 +2,17 @@ import React from "react";
 import logo from "../../images/summercamp.png";
 import GoogleLogin from "react-google-login";
 import "./Login.css";
-import * as auth from "../../services/userService/userService";
-const Login = (props) => {
+import * as authService from "../../services/common/authService";
 
-  const handleSuccess = (response) => {
-    console.log(response);
-    auth.authenticateUser(response.token);
-    let currentUser = auth.getCurrentUser();
-    console.log('cur' + currentUser);
-    if (currentUser) {
+const Login = () => {
+
+  const handleSuccess = async (response) => {
+    console.log(JSON.stringify(response));
+    try {
+      await authService.login(response.wc["id_token"]);
       window.location = "/";
+    } catch (err) {
+      console.log(err);
     }
   };
 
