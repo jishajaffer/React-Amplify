@@ -6,9 +6,18 @@ import * as authService from "../../services/common/authService";
 
 const Login = () => {
   const handleSuccess = async (response) => {
-    console.log(JSON.stringify(response));
+    console.log(JSON.stringify(response.profileObj));
+    console.log(response.wc["id_token"]);
+    const { givenName, familyName, email, imageUrl } = response.profileObj;
+    const googleUser = {
+      firstName: givenName,
+      lastName: familyName,
+      emailAddress: email,
+      picture: imageUrl
+    };
+
     try {
-      await authService.login(response.wc["id_token"]);
+      await authService.login(response.wc["id_token"], googleUser);
       window.location = "/";
     } catch (err) {
       console.log(err);

@@ -7,7 +7,12 @@ import * as articleService from "../../services/articleService";
 const ArticleForm = (props) => {
   const { id: articleId } = props.match ? props.match.params : {id: null};
   
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [initialValidation, setInitialValidation] = useState({
+    title: null,
+    content: null,
+    categoryId: null,
+  });
   const [article, setArticle] = useState({
     id: "",
     title: "",
@@ -16,7 +21,6 @@ const ArticleForm = (props) => {
     highlighted: false,
     imageUrl: "",
   });
-  const [categories, setCategories] = useState([]);
 
   const initState = () => {
     categoryService.getCategories().then(response => {
@@ -33,7 +37,7 @@ const ArticleForm = (props) => {
     if (articleId) {
       articleService.getArticleById(articleId).then(response => {
         let { data } = response;
-        initialValidationState = {};
+        setInitialValidation({});
         
         setArticle({
           id: data.articleID,
@@ -43,56 +47,14 @@ const ArticleForm = (props) => {
           imageUrl: data.picture,
           highlighted: data.highlighted,
         });
-        setLoading(false);
         console.log(article);
       });
-    } else {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     initState();
   }, []);
-
-  let initialValidationState = {
-    title: null,
-    content: null,
-    categoryId: null,
-  };
-
-  /*const articleToFormData = (article) => {
-    let formData = {
-      id: "",
-      title: "",
-      content: "",
-      categoryId: "",
-      highlighted: false,
-      imageUrl: "",
-    };
-
-    if (article) {
-      formData = {
-        id: article.articleID,
-        title: article.title,
-        content: article.content,
-        categoryId: article.articleCategories[0].category.categoryID,
-        imageUrl: article.picture,
-        highlighted: article.highlighted,
-      };
-
-      initialValidationState = {};
-    }
-
-    return formData;
-  };*/
-
-  /*let formData = {};*/
-
-  // const handleImageChange = (image) => {
-  //   // var fileName = e.target;
-  //   console.log(image);
-  // };
 
   const inputs = [
     { name: "title", label: "Title" },
@@ -126,9 +88,22 @@ const ArticleForm = (props) => {
     highlighted: Joi.bool().required().label("Highlight"),
   };
 
-  const doSubmit = (article) => {
+  const doSubmit = async (article) => {
     console.log("Article: ", article);
-    // call create article api
+    if (articleId) {
+      console.log("edit");
+      try {
+        await articleService.updateArticle(article);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        await articleService.postNewArticle(article);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     props.history.replace("/");
   };
 
@@ -147,7 +122,7 @@ const ArticleForm = (props) => {
   return (
     <div className="container">
       <div className="my-4 bg-white p-2 rounded shadow-sm">
-        {!loading ? <Form
+        <Form
           inputs={inputs}
           submitButton={submitButton}
           cancelButton={cancelButton}
@@ -155,8 +130,8 @@ const ArticleForm = (props) => {
           doSubmit={doSubmit}
           initialData={article}
           validationSchema={schema}
-          initialValidationState={initialValidationState}
-        ></Form> : <h2>Loading...</h2>}
+          initialValidationState={initialValidation}
+        />
       </div>
     </div>
   );

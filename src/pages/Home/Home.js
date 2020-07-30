@@ -24,7 +24,7 @@ function Home(props) {
     return articles.filter((article) => article.articleCategories[0].category.categoryName === category);
   };
 
-  const initState = () => {
+  const initArticles = () => {
     if (filterCategory === "All") {
       articleService.getArticles().then(response => {
         const { data: articles } = response;
@@ -39,6 +39,10 @@ function Home(props) {
         setArticles(articles);
       });
     }
+  };
+
+  const initState = () => {
+    initArticles();
     categoryService.getCategories().then(response => {
       const { data: categories } = response;
       setCategories(categories);

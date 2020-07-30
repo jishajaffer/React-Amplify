@@ -1,27 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Joi from "@hapi/joi";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
 import TextArea from "../TextArea/TextArea";
 
 import Checkbox from "../Checkbox/Checkbox";
-function Form({
-  inputs,
-  initialData,
-  validationSchema: schema,
-  initialValidationState,
-  submitButton,
-  doSubmit,
-  cancelButton,
-  doCancel
-}) {
+function Form({ inputs, initialData, validationSchema: schema, initialValidationState, submitButton, doSubmit, cancelButton, doCancel }) {
   const [formData, setFormData] = useState(initialData);
-  const [validationErrors, setValidationErrors] = useState(
-    initialValidationState
-  );
-  const handleChange = ({
-    currentTarget: { name: propertyName, value, checked },
-  }) => {
+  const [validationErrors, setValidationErrors] = useState(initialValidationState);
+
+  useEffect(() => {
+    setFormData(initialData);
+  }, [initialData]);
+
+  useEffect(() => {
+    setValidationErrors(initialValidationState);
+  }, [initialValidationState]);
+
+  const handleChange = ({ currentTarget: { name: propertyName, value, checked } }) => {
     console.log(propertyName + " " + value + " " + checked);
     const currentAccountState = { ...formData };
     if (propertyName === "highlighted") {
@@ -37,6 +33,7 @@ function Form({
     setValidationErrors(errors);
     setFormData(currentAccountState);
   };
+
   const validateProperty = (propertyName, currentState, currentErrors) => {
     const propertyToValidate = { [propertyName]: currentState[propertyName] };
     const propertySchema = Joi.object({ [propertyName]: schema[propertyName] });
@@ -50,6 +47,7 @@ function Form({
     errors[propertyName] = item.message;
     return errors;
   };
+
   const validateForm = () => {
     const options = { abortEarly: false };
     const { error } = Joi.object(schema).validate(formData, options);
@@ -57,6 +55,7 @@ function Form({
     error && error.details.map((item) => (errors[item.path[0]] = item.message));
     return errors;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setValidationErrors(validateForm());
@@ -67,15 +66,11 @@ function Form({
     e.preventDefault();
     doCancel();
   };
+
   const isFormValid = Object.keys(validationErrors).length === 0;
-  const {
-    submitLabel = "Submit",
-    submitStyling = "btn btn-primary mr-2 mt-2",
-  } = submitButton;
-  const {
-    cancelLabel = "Cancel",
-    cancelStyling = "btn btn-primary mr-2 mt-2",
-  } = cancelButton;
+  const { submitLabel = "Submit", submitStyling = "btn btn-primary mr-2 mt-2" } = submitButton;
+  const { cancelLabel = "Cancel", cancelStyling = "btn btn-primary mr-2 mt-2" } = cancelButton;
+
   return (
     <>
       <form>
