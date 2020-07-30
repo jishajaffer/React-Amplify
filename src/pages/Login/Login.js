@@ -8,8 +8,10 @@ const Login = (props) => {
   const handleSuccess = (response) => {
     console.log(response);
     auth.authenticateUser(response.token);
-    if (auth.getCurrentUser()) {
-      props.history.push("/");
+    let currentUser = auth.getCurrentUser();
+    console.log('cur' + currentUser);
+    if (currentUser) {
+      window.location = "/";
     }
   };
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 
-
 // Context
 import { UserProvider } from "./context/userContext";
 
@@ -10,6 +9,7 @@ import { UserProvider } from "./context/userContext";
 import Article from "./pages/Article/Article";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import ArticleForm from "./pages/ArticleForm/ArticleForm";
 import NotFound from "./pages/NotFound/Notfound";
 
 // Services
@@ -24,8 +24,6 @@ function App() {
 
   const initState = () => {
     const jwt = auth.getCurrentUser();
-    console.log("jwt");
-    console.log(jwt);
     if (jwt) {
       setUser({
         name: "Dexter Morgan",
@@ -48,11 +46,31 @@ function App() {
         <Switch>
           <ProtectedRoute
             exact
-            path="/article/:id"
+            path="/articles/new"
+            component={(props) => (
+              <>
+                <Navbar />
+                <ArticleForm {...props} />
+              </>
+            )}
+          />
+          <ProtectedRoute
+            exact
+            path="/articles/:id"
             component={(props) => (
               <>
                 <Navbar />
                 <Article {...props} />
+              </>
+            )}
+          />
+          <ProtectedRoute
+            exact
+            path="/articles/:id/edit"
+            component={(props) => (
+              <>
+                <Navbar />
+                <ArticleForm {...props} />
               </>
             )}
           />
