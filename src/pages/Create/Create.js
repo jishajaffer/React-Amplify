@@ -7,8 +7,52 @@ import * as articleService from "../../services/articleService";
 const Create = (props) => {
   const { id: articleId } = props.match.params;
 
-  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [article, setArticle] = useState({
+    id: "",
+    title: "",
+    content: "",
+    categoryId: "",
+    highlighted: false,
+    imageUrl: "",
+  });
   const [categories, setCategories] = useState([]);
+
+  const initState = () => {
+    categoryService.getCategories().then(response => {
+      let { data: categories } = response;
+      categories = categories.map(category => {
+        return {
+          id: category.categoryID,
+          name: category.categoryName
+        };
+      });
+      setCategories(categories);
+    });
+
+    if (articleId) {
+      articleService.getArticleById(articleId).then(response => {
+        let { data } = response;
+        initialValidationState = {};
+        setLoading(false);
+        setArticle({
+          id: data.articleID,
+          title: data.title,
+          content: data.content,
+          categoryId: data.articleCategories[0].category.categoryID,
+          imageUrl: data.picture,
+          highlighted: data.highlighted,
+        });
+        console.log(article);
+      });
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    initState();
+  }, []);
 
   let initialValidationState = {
     title: null,
@@ -16,7 +60,7 @@ const Create = (props) => {
     categoryId: null,
   };
 
-  const articleToFormData = (article) => {
+  /*const articleToFormData = (article) => {
     let formData = {
       id: "",
       title: "",
@@ -40,37 +84,9 @@ const Create = (props) => {
     }
 
     return formData;
-  };
+  };*/
 
-  let formData = articleToFormData(article);
-
-  const initState = () => {
-    categoryService.getCategories().then(response => {
-      let { data: categories } = response;
-      categories = categories.map(category => {
-        return {
-          id: category.categoryID,
-          name: category.categoryName
-        };
-      });
-      setCategories(categories);
-    });
-
-    if (articleId) {
-      articleService.getArticleById(articleId).then(response => {
-        let { data: article } = response;
-        
-
-        initialValidationState = {};
-        setArticle(article);
-      });
-    }
-  };
-
-  useEffect(() => {
-    initState();
-  }, []);
-
+  /*let formData = {};*/
 
   // const handleImageChange = (image) => {
   //   // var fileName = e.target;
@@ -131,16 +147,16 @@ const Create = (props) => {
   return (
     <div className="container">
       <div className="my-4 bg-white p-2 rounded shadow-sm">
-        <Form
+        {!loading ? <Form
           inputs={inputs}
           submitButton={submitButton}
           cancelButton={cancelButton}
           doCancel={doCancel}
           doSubmit={doSubmit}
-          initialData={formData}
+          initialData={article}
           validationSchema={schema}
           initialValidationState={initialValidationState}
-        ></Form>
+        ></Form> : <h2>Loading...</h2>}
       </div>
     </div>
   );
