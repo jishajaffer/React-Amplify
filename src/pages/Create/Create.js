@@ -1,16 +1,14 @@
-import React from "react";
-import * as categoryApi from "../../services/fakeCategoryService";
+import React, { useState, useEffect } from "react";
 import Joi from "@hapi/joi";
 import Form from "../../components/Form/Form";
-import * as articleApi from "../../services/fakeArticleService";
+import * as categoryService from "../../services/categoryService";
+import * as articleService from "../../services/articleService";
 
 const Create = (props) => {
   const { id: articleId } = props.match.params;
-  let article;
 
-  if (articleId) {
-    article = articleApi.getArticlesById(articleId);
-  }
+  const [article, setArticle] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   let initialValidationState = {
     title: null,
@@ -33,7 +31,7 @@ const Create = (props) => {
         id: article.articleID,
         title: article.title,
         content: article.content,
-        categoryId: article.categories[0].categoryID,
+        categoryId: article.articleCategories[0].category.categoryID,
         imageUrl: article.picture,
         highlighted: article.highlighted,
       };
@@ -44,7 +42,35 @@ const Create = (props) => {
     return formData;
   };
 
-  const formData = articleToFormData(article);
+  let formData = articleToFormData(article);
+
+  const initState = () => {
+    categoryService.getCategories().then(response => {
+      let { data: categories } = response;
+      categories = categories.map(category => {
+        return {
+          id: category.categoryID,
+          name: category.categoryName
+        };
+      });
+      setCategories(categories);
+    });
+
+    if (articleId) {
+      articleService.getArticleById(articleId).then(response => {
+        let { data: article } = response;
+        
+
+        initialValidationState = {};
+        setArticle(article);
+      });
+    }
+  };
+
+  useEffect(() => {
+    initState();
+  }, []);
+
 
   // const handleImageChange = (image) => {
   //   // var fileName = e.target;
@@ -62,7 +88,7 @@ const Create = (props) => {
       name: "categoryId",
       label: "Category",
       type: "select",
-      options: categoryApi.getCategoriesForSelect(),
+      options: categories,
     },
     {
       name: "imageUrl",

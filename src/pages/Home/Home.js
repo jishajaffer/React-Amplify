@@ -92,7 +92,6 @@ function Home(props) {
                 <div className="row" key={groupIndex}>
                   {articleGroup.map((article, articleIndex) => {
                     const { articleID: articleId, picture: articleImage, title: articleTitle, content: articleContent, articleCategories, highlighted } = article;
-                    console.log(articleCategories);
                     const articleCategory = articleCategories[0].category.categoryName;
                     return (
                       <div className="col-md-6 mb-4" key={articleIndex}>

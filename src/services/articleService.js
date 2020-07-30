@@ -11,6 +11,7 @@ export function getArticlesByCategory() {
   return httpService.get(endpointUrl);
 }
 
-export function getArticleById() {
-
+export function getArticleById(id) {
+  const endpointUrl = apiUrl + `/Articles/${id}`;
+  return httpService.get(endpointUrl);
 }
