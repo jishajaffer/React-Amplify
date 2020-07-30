@@ -12,6 +12,7 @@ const Checkbox = ({ name, label, value, error, onChange }) => {
           id={name}
           name={name}
           checked={value}
+          data-testid={name}
         />
       </div>
       {error && <div className="alert alert-danger">{error}</div>}

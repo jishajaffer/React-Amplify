@@ -4,9 +4,9 @@ import Form from "../../components/Form/Form";
 import * as categoryService from "../../services/categoryService";
 import * as articleService from "../../services/articleService";
 
-const Create = (props) => {
-  const { id: articleId } = props.match.params;
-
+const ArticleForm = (props) => {
+  const { id: articleId } = props.match ? props.match.params : {id: null};
+  
   const [loading, setLoading] = useState(true);
   const [article, setArticle] = useState({
     id: "",
@@ -34,7 +34,7 @@ const Create = (props) => {
       articleService.getArticleById(articleId).then(response => {
         let { data } = response;
         initialValidationState = {};
-        setLoading(false);
+        
         setArticle({
           id: data.articleID,
           title: data.title,
@@ -43,6 +43,7 @@ const Create = (props) => {
           imageUrl: data.picture,
           highlighted: data.highlighted,
         });
+        setLoading(false);
         console.log(article);
       });
     } else {
@@ -126,7 +127,6 @@ const Create = (props) => {
   };
 
   const doSubmit = (article) => {
-    console.log("Submitted");
     console.log("Article: ", article);
     // call create article api
     props.history.replace("/");
@@ -162,4 +162,4 @@ const Create = (props) => {
   );
 };
 
-export default Create;
+export default ArticleForm;

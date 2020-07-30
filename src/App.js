@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 
 // Context
 import { UserProvider } from "./context/userContext";
 
 // Pages
+import Article from "./pages/Article/Article";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import Article from "./pages/Article/Article";
-import Create from "./pages/Create/Create";
+import ArticleForm from "./pages/ArticleForm/ArticleForm";
+import NotFound from "./pages/NotFound/Notfound";
 
 // Services
 import * as authService from "./services/common/authService";
@@ -55,7 +56,7 @@ function App() {
             component={(props) => (
               <>
                 <Navbar />
-                <Create {...props} />
+                <ArticleForm {...props} />
               </>
             )}
           />
@@ -75,21 +76,19 @@ function App() {
             component={(props) => (
               <>
                 <Navbar />
-                <Create {...props} />
+                <ArticleForm {...props} />
               </>
             )}
           />
           <Route exact path="/login" component={Login} />
-          <ProtectedRoute
-            exact
-            path="/"
-            component={(props) => (
-              <>
-                <Navbar />
-                <Home {...props} />
-              </>
-            )}
-          />
+          <ProtectedRoute exact path="/" component={(props) => (
+            <>
+              <Navbar />
+              <Home {...props} />
+            </>
+          )} />
+          <Route path="/not-found" component={NotFound}></Route>
+          <Redirect to="/not-found"></Redirect>
         </Switch>
       </UserProvider>
     </>

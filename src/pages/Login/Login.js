@@ -5,7 +5,6 @@ import "./Login.css";
 import * as authService from "../../services/common/authService";
 
 const Login = () => {
-
   const handleSuccess = async (response) => {
     console.log(JSON.stringify(response));
     try {
