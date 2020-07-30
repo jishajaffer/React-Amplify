@@ -9,7 +9,7 @@ import { UserProvider } from "./context/userContext";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import Article from "./pages/Article/Article";
-import Create from "./pages/Create/Create";
+import ArticleForm from "./pages/ArticleForm/ArticleForm";
 
 // Services
 import * as auth from "./services/userService/userService";
@@ -49,7 +49,7 @@ function App() {
             component={(props) => (
               <>
                 <Navbar />
-                <Create {...props} />
+                <ArticleForm {...props} />
               </>
             )}
           />
@@ -69,7 +69,7 @@ function App() {
             component={(props) => (
               <>
                 <Navbar />
-                <Create {...props} />
+                <ArticleForm {...props} />
               </>
             )}
           />

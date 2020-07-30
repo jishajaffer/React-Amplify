@@ -1,6 +1,7 @@
 import React from "react";
 import { fireEvent, render, cleanup } from "@testing-library/react";
 import Article from "./Article";
+import { BrowserRouter as Router } from "react-router-dom";
 
 test("renders article title if admin", async () => {
   const user = {
@@ -8,7 +9,9 @@ test("renders article title if admin", async () => {
   };
 
   const { findByTestId } = render(
-    <Article match={{ params: { id: 1 } }} user={user} />
+    <Router>
+      <Article match={{ params: { id: 1 } }} user={user} />
+    </Router>
   );
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
@@ -32,7 +35,9 @@ test("renders article title for non-admin user", async () => {
   };
 
   const { findByTestId, queryByText } = render(
-    <Article match={{ params: { id: 1 } }} user={user} />
+    <Router>
+      <Article match={{ params: { id: 1 } }} user={user} />
+    </Router>
   );
   const title = await findByTestId("titleId");
   const image = await findByTestId("imageId");
@@ -55,11 +60,12 @@ test("No rendering if its invalid id", () => {
     permissionLevel: "admin",
   };
 
-  const { queryByText, debug } = render(
-    <Article match={{ params: { id: 0 } }} user={user} />
+  const { queryByText } = render(
+    <Router>
+      <Article match={{ params: { id: 0 } }} user={user} />
+    </Router>
   );
 
-  debug();
   const title = queryByText("titleId");
   const image = queryByText("imageId");
   const content = queryByText("contentId");
@@ -82,7 +88,9 @@ test("Button capture test for delete", async () => {
   };
 
   const { findByTestId } = render(
-    <Article match={{ params: { id: 1 } }} user={user} />
+    <Router>
+      <Article match={{ params: { id: 1 } }} user={user} />
+    </Router>
   );
 
   const deleteButton = await findByTestId("buttonDelete");
@@ -96,11 +104,13 @@ test("Button capture test for edit", async () => {
   };
 
   const { findByTestId } = render(
-    <Article match={{ params: { id: 1 } }} user={user} />
+    <Router>
+      <Article match={{ params: { id: 1 } }} user={user} />
+    </Router>
   );
   const editButton = await findByTestId("buttonEdit");
   fireEvent.click(editButton);
-  expect(window.location.pathname).toBe("/");
+  expect(window.location.pathname).toBe("/articles/1/edit");
 });
 
 afterEach(cleanup);

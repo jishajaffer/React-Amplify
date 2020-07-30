@@ -9,7 +9,10 @@ const Article = (props) => {
 
   const articleId = props.match.params.id;
   const article = articleApi.getArticlesById(articleId);
-  const articleDate = new Date(article.date);
+  let articleDate;
+  if (article) {
+    articleDate = new Date(article.date);
+  }
 
   return (
     <div className="container">
@@ -44,11 +47,12 @@ const Article = (props) => {
               src={article.picture}
               className="article-banner rounded mb-3"
               alt="Article Banner"
+              data-testid="imageId"
             />
           )}
           <div className="row">
             <div className="col-md-2">
-              <div className="badge badge-primary p-2 mb-3">
+              <div className="badge badge-primary p-2 mb-3" data-testid="categoryId">
                 {article.categories[0].categoryName}
               </div>
               <h4>Published:</h4>

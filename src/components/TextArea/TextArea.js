@@ -5,7 +5,7 @@ function TextArea({name, label, onChange, error, value}) {
     <>
       <div className="form-group">
         <label htmlFor={name}>{label}</label>
-        <textarea name={name} onChange={onChange} rows="10" className="form-control" id={name} value={value}>
+        <textarea name={name} onChange={onChange} rows="10" className="form-control" id={name} value={value} data-testid={name}>
         </textarea>
         {error && <div className="alert alert-danger">{error}</div>}
       </div>

@@ -4,8 +4,8 @@ import Joi from "@hapi/joi";
 import Form from "../../components/Form/Form";
 import * as articleApi from "../../services/fakeArticleService";
 
-const Create = (props) => {
-  const { id: articleId } = props.match.params;
+const ArticleForm = (props) => {
+  const { id: articleId } = props.match ? props.match.params : {id: null};
   let article;
 
   if (articleId) {
@@ -84,7 +84,6 @@ const Create = (props) => {
   };
 
   const doSubmit = (article) => {
-    console.log("Submitted");
     console.log("Article: ", article);
     // call create article api
     props.history.replace("/");
@@ -120,4 +119,4 @@ const Create = (props) => {
   );
 };
 
-export default Create;
+export default ArticleForm;

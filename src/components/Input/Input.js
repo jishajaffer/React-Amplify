@@ -19,6 +19,7 @@ function Input({
         name={name}
         autoFocus={shouldAutofocus}
         value={value}
+        data-testid={name}
       />
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
