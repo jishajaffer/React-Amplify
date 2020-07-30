@@ -11,12 +11,6 @@ const Article = (props) => {
   const article = articleApi.getArticlesById(articleId);
   const articleDate = new Date(article.date);
 
-  const handleDelete = () => {
-    //Call api delete article
-    //Update path to relevant page (home)
-    window.location = "/";
-  };
-
   return (
     <div className="container">
       {isAdmin && (
