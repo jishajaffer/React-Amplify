@@ -51,6 +51,7 @@ function Home(props) {
 
   useEffect(() => {
     initState();
+    // eslint-disable-next-line 
   }, [filterCategory]);
 
   const handleFilterCategory = ({ currentTarget: { value } }) => {

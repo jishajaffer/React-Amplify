@@ -10,7 +10,7 @@ function Form({ inputs, initialData, validationSchema: schema, initialValidation
   const [validationErrors, setValidationErrors] = useState(initialValidationState);
 
   useEffect(() => {
-    setFormData(initialData);
+    setFormData({...initialData});
   }, [initialData]);
 
   useEffect(() => {

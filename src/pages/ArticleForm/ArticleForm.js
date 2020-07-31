@@ -54,6 +54,7 @@ const ArticleForm = (props) => {
 
   useEffect(() => {
     initState();
+    // eslint-disable-next-line 
   }, []);
 
   const inputs = [

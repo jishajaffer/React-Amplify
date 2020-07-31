@@ -20,6 +20,7 @@ const Article = (props) => {
 
   useEffect(() => {
     initState();
+    // eslint-disable-next-line 
   }, []);
 
   return (
