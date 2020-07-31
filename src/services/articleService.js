@@ -53,7 +53,7 @@ export function updateArticle(article) {
   console.log(endpointUrl);
   const currentTime = new Date().toISOString();
   let articleToUpdate = {
-    articleID: 0,
+    articleID: article.id,
     title: article.title,
     content: article.content,
     dateCreated: currentTime,
