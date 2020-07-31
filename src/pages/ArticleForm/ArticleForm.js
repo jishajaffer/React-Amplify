@@ -54,7 +54,7 @@ const ArticleForm = (props) => {
 
   useEffect(() => {
     initState();
-  }, []);
+  });
 
   const inputs = [
     { name: "title", label: "Title" },

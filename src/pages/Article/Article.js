@@ -20,7 +20,7 @@ const Article = (props) => {
 
   useEffect(() => {
     initState();
-  }, []);
+  });
 
   return (
     <div className="container">
