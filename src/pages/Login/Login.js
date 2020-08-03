@@ -4,7 +4,8 @@ import GoogleLogin from "react-google-login";
 import "./Login.css";
 import * as authService from "../../services/common/authService";
 
-const Login = () => {
+const Login = (props) => {
+  const { state } = props.location;
 
   const handleSuccess = async (response) => {
     console.log(JSON.stringify(response.profileObj));
@@ -19,7 +20,12 @@ const Login = () => {
 
     try {
       await authService.login(response.wc["id_token"], googleUser);
-      window.location = "/";
+      if (state) {
+        const pathname = state.from.pathname;
+        window.location = pathname;
+      } else {
+        window.location = "/";
+      }
     } catch (err) {
       console.log(err);
     }
