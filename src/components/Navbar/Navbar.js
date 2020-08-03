@@ -1,12 +1,11 @@
 import React /*{ useContext }*/ from "react";
 import logo from "../../images/summercamp.png";
 //import userContext from "../../context/userContext";
-import womanPic from "../../images/woman.png";
 
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({user}) {
   //const { user } = useContext(userContext);
 
   return (
@@ -16,7 +15,7 @@ function Navbar() {
       </span>
       <ul className="navbar-nav ml-auto">
         <li className="navbar-item">
-          <img src={womanPic} id="profile-photo" alt="profile"/>
+          <img src={user.picture} id="profile-photo" alt="profile"/>
         </li>
       </ul>
     </nav>

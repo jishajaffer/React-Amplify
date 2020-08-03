@@ -5,6 +5,7 @@ import "./Login.css";
 import * as authService from "../../services/common/authService";
 
 const Login = () => {
+
   const handleSuccess = async (response) => {
     console.log(JSON.stringify(response.profileObj));
     console.log(response.wc["id_token"]);
@@ -13,7 +14,7 @@ const Login = () => {
       firstName: givenName,
       lastName: familyName,
       emailAddress: email,
-      picture: imageUrl
+      picture: imageUrl,
     };
 
     try {
