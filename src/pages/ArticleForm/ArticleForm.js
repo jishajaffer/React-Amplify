@@ -14,12 +14,11 @@ const ArticleForm = (props) => {
     categoryId: null,
   });
   const [article, setArticle] = useState({
-    id: "",
     title: "",
     content: "",
-    categoryId: "",
+    categoryId: 0,
     highlighted: false,
-    imageUrl: "",
+    picture: "",
   });
 
   const initState = () => {
@@ -32,6 +31,7 @@ const ArticleForm = (props) => {
         };
       });
       setCategories(categories);
+      console.log(categories);
     });
 
     if (articleId) {
@@ -39,12 +39,16 @@ const ArticleForm = (props) => {
         let { data } = response;
         setInitialValidation({});
         
+        // Using only the first category within the array, editting an article will overwrite the articles category with only 1 if it had multiple prior
         setArticle({
-          id: data.articleID,
+          articleID: data.articleID,
           title: data.title,
           content: data.content,
-          categoryId: data.articleCategories[0].category.categoryID,
-          imageUrl: data.picture,
+          dateCreated: data.dateCreated,
+          dateLastUpdated: data.dateLastUpdated,
+          user: data.user,
+          categoryId: (data.articleCategories[0].category.categoryID).toString(),
+          picture: data.picture,
           highlighted: data.highlighted,
         });
         console.log(article);
@@ -71,7 +75,7 @@ const ArticleForm = (props) => {
       options: categories,
     },
     {
-      name: "imageUrl",
+      name: "picture",
       label: "Image Url",
     },
     {
@@ -84,15 +88,26 @@ const ArticleForm = (props) => {
   const schema = {
     title: Joi.string().required().label("Title"),
     content: Joi.string().required().label("Content"),
-    imageUrl: Joi.string().allow("").label("Image Url"),
+    picture: Joi.string().allow("").label("Image Url"),
     categoryId: Joi.string().required().label("Category"),
     highlighted: Joi.bool().required().label("Highlight"),
   };
 
   const doSubmit = async (article) => {
-    console.log("Article: ", article);
+    article.categoryId = parseInt(article.categoryId);
+    const articleCategories = categories.filter(category => category.id === article.categoryId);
+    article.articleCategories = [];
+    for (let i = 0; i < articleCategories.length; i++) {
+      article.articleCategories.push({
+        category: {
+          categoryID: articleCategories[i].id,
+          categoryName: articleCategories[i].name
+        }
+      });
+    }
+    delete article.categoryId;
+
     if (articleId) {
-      console.log("edit");
       try {
         await articleService.updateArticle(article);
       } catch (err) {
@@ -113,7 +128,7 @@ const ArticleForm = (props) => {
   };
 
   const submitButton = {
-    submitLabel: "Publish",
+    submitLabel: articleId ? "Republish" : "Publish",
   };
 
   const cancelButton = {

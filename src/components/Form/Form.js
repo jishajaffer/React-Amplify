@@ -18,7 +18,7 @@ function Form({ inputs, initialData, validationSchema: schema, initialValidation
   }, [initialValidationState]);
 
   const handleChange = ({ currentTarget: { name: propertyName, value, checked } }) => {
-    console.log(propertyName + " " + value + " " + checked);
+    console.log(propertyName + " " + value);
     const currentAccountState = { ...formData };
     if (propertyName === "highlighted") {
       currentAccountState[propertyName] = checked;

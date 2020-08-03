@@ -18,7 +18,7 @@ export async function login(idToken, googleUser) {
 
 const storeGoogleUser = (googleUser) => {
   localStorage.setItem("google_user", JSON.stringify(googleUser));
-}
+};
 
 function loginWithJwt(jwt) {
   localStorage.setItem(tokenKey, jwt);
