@@ -26,12 +26,12 @@ function loginWithJwt(jwt) {
 
 export async function getCurrentUser() {
   try {
+    http.setRequestInterceptors();
     const jwt = getJwt();
     const decodedJwt = JwtDecode(jwt);
     const googleUser = JSON.parse(localStorage.getItem("google_user"));
     return {...userTransformer.jwtToUser(decodedJwt), ...googleUser};
   } catch (err) {
-    console.log(err);
     return null;
   }
 }
