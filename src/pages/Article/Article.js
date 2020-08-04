@@ -26,7 +26,7 @@ const Article = (props) => {
   const handleDelete = async () => {
     await articleService.deleteArticle(article);
     window.location = "/";
-  }
+  };
 
   return (
     <div className="container">

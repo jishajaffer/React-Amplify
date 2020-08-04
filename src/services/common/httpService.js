@@ -15,8 +15,9 @@ function setRequestInterceptors() {
       localStorage.removeItem(tokenKey);
       localStorage.removeItem("google_user");
       window.location = "/login";
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
+    return error;
   });
 }
 

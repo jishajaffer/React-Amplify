@@ -22,13 +22,6 @@ function Home(props) {
     articles.sort((a, b) => b.highlighted - a.highlighted);
   };
 
-  const filterArticlesByCategory = (articles, category) => {
-    return articles.filter(
-      (article) =>
-        article.articleCategories[0].category.categoryName === category
-    );
-  };
-
   const initArticles = () => {
     if (filterCategory === "All") {
       articleService.getArticles().then((response) => {
@@ -38,10 +31,16 @@ function Home(props) {
       });
     } else {
       articleService.getArticlesByCategory(filterCategory).then((response) => {
-        let { data: articles } = response;
-        articles = filterArticlesByCategory(articles, filterCategory);
-        sortArticles(articles);
-        setArticles(articles);
+        if (response.response) {
+          const { status } = response.response;
+          if (status === 404) {
+            setArticles([]);
+          }
+        } else {
+          let { data: articles } = response;
+          sortArticles(articles);
+          setArticles(articles);
+        }
       });
     }
   };

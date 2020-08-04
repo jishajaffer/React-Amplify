@@ -6,8 +6,8 @@ export function getArticles() {
   return httpService.get(endpointUrl);
 }
 
-export function getArticlesByCategory() {
-  const endpointUrl = apiUrl + "/Articles";
+export function getArticlesByCategory(category) {
+  const endpointUrl = apiUrl + `/Articles/${category}`;
   return httpService.get(endpointUrl);
 }
 
@@ -28,6 +28,6 @@ export function updateArticle(article) {
 }
 
 export function deleteArticle(article) {
-    const endpointUrl = apiUrl + `/Articles/${article.articleID}`;
-    return httpService.delete(endpointUrl);
+  const endpointUrl = apiUrl + `/Articles/${article.articleID}`;
+  return httpService.delete(endpointUrl);
 }
