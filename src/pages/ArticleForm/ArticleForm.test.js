@@ -1,9 +1,7 @@
 import React from "react";
 import {
   fireEvent,
-  render,
-  cleanup,
-  waitForElement,
+  render
 } from "@testing-library/react";
 import ArticleForm from "./ArticleForm";
 
@@ -69,7 +67,7 @@ test("submiting takes the user to the homepage", async () => {
   };
 
   const replace = jest.fn();
-  const { getByText, getByTestId, debug } = render(
+  const { getByText } = render(
     <ArticleForm
       user={user}
       history={{ replace: replace }}

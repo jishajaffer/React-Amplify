@@ -1,7 +1,12 @@
+#summercamp-logo {
+    width: 6rem;
+    height: auto;
+}
+
 #profile-photo {
     vertical-align: middle;
-    width: 100%;
-    height: auto;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
 }
 

@@ -13,7 +13,7 @@ import ArticleForm from "./pages/ArticleForm/ArticleForm";
 import NotFound from "./pages/NotFound/Notfound";
 
 // Services
-import * as auth from "./services/userService/userService";
+import * as authService from "./services/common/authService";
 
 // Components
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -22,18 +22,10 @@ import Navbar from "./components/Navbar/Navbar";
 function App() {
   const [user, setUser] = useState({});
 
-  const initState = () => {
-    const jwt = auth.getCurrentUser();
-    if (jwt) {
-      setUser({
-        name: "Dexter Morgan",
-        permissionLevel: "admin",
-        profilePhoto:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9iUQ5TVznynSsqOdajd-zXGY5hgNWOD9LWg&usqp=CAU",
-      });
-    } else {
-      setUser(null);
-    }
+  const initState = async () => {
+    authService.getCurrentUser().then((validatedUser) => {
+      setUser(validatedUser);
+    });
   };
 
   useEffect(() => {
@@ -49,7 +41,7 @@ function App() {
             path="/articles/new"
             component={(props) => (
               <>
-                <Navbar />
+                <Navbar {...props} />
                 <ArticleForm {...props} />
               </>
             )}
@@ -59,7 +51,7 @@ function App() {
             path="/articles/:id"
             component={(props) => (
               <>
-                <Navbar />
+                <Navbar {...props} />
                 <Article {...props} />
               </>
             )}
@@ -69,18 +61,22 @@ function App() {
             path="/articles/:id/edit"
             component={(props) => (
               <>
-                <Navbar />
+                <Navbar {...props} />
                 <ArticleForm {...props} />
               </>
             )}
           />
           <Route exact path="/login" component={Login} />
-          <ProtectedRoute exact path="/" component={(props) => (
-            <>
-              <Navbar />
-              <Home {...props} />
-            </>
-          )} />
+          <ProtectedRoute
+            exact
+            path="/"
+            component={(props) => (
+              <>
+                <Navbar {...props} />
+                <Home {...props} />
+              </>
+            )}
+          />
           <Route path="/not-found" component={NotFound}></Route>
           <Redirect to="/not-found"></Redirect>
         </Switch>

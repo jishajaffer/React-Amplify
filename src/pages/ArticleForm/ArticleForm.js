@@ -1,55 +1,65 @@
-import React from "react";
-import * as categoryApi from "../../services/fakeCategoryService";
+import React, { useState, useEffect } from "react";
 import Joi from "@hapi/joi";
 import Form from "../../components/Form/Form";
-import * as articleApi from "../../services/fakeArticleService";
+import * as categoryService from "../../services/categoryService";
+import * as articleService from "../../services/articleService";
 
 const ArticleForm = (props) => {
   const { id: articleId } = props.match ? props.match.params : {id: null};
-  let article;
-
-  if (articleId) {
-    article = articleApi.getArticlesById(articleId);
-  }
-
-  let initialValidationState = {
+  
+  const [categories, setCategories] = useState([]);
+  const [initialValidation, setInitialValidation] = useState({
     title: null,
     content: null,
     categoryId: null,
-  };
+  });
+  const [article, setArticle] = useState({
+    title: "",
+    content: "",
+    categoryId: 0,
+    highlighted: false,
+    picture: "",
+  });
 
-  const articleToFormData = (article) => {
-    let formData = {
-      id: "",
-      title: "",
-      content: "",
-      categoryId: "",
-      highlighted: false,
-      imageUrl: "",
-    };
+  const initState = () => {
+    categoryService.getCategories().then(response => {
+      let { data: categories } = response;
+      categories = categories.map(category => {
+        return {
+          id: category.categoryID,
+          name: category.categoryName
+        };
+      });
+      setCategories(categories);
+      console.log(categories);
+    });
 
-    if (article) {
-      formData = {
-        id: article.articleID,
-        title: article.title,
-        content: article.content,
-        categoryId: article.categories[0].categoryID,
-        imageUrl: article.picture,
-        highlighted: article.highlighted,
-      };
-
-      initialValidationState = {};
+    if (articleId) {
+      articleService.getArticleById(articleId).then(response => {
+        let { data } = response;
+        setInitialValidation({});
+        
+        // Using only the first category within the array, editting an article will overwrite the articles category with only 1 if it had multiple prior
+        setArticle({
+          articleID: data.articleID,
+          title: data.title,
+          content: data.content,
+          dateCreated: data.dateCreated,
+          dateLastUpdated: data.dateLastUpdated,
+          user: data.user,
+          categoryId: (data.articleCategories[0].category.categoryID).toString(),
+          picture: data.picture,
+          highlighted: data.highlighted,
+        });
+        console.log(article);
+      });
     }
-
-    return formData;
   };
 
-  const formData = articleToFormData(article);
-
-  // const handleImageChange = (image) => {
-  //   // var fileName = e.target;
-  //   console.log(image);
-  // };
+  useEffect(() => {
+    initState();
+    // eslint-disable-next-line 
+  }, []);
 
   const inputs = [
     { name: "title", label: "Title" },
@@ -62,10 +72,10 @@ const ArticleForm = (props) => {
       name: "categoryId",
       label: "Category",
       type: "select",
-      options: categoryApi.getCategoriesForSelect(),
+      options: categories,
     },
     {
-      name: "imageUrl",
+      name: "picture",
       label: "Image Url",
     },
     {
@@ -78,14 +88,38 @@ const ArticleForm = (props) => {
   const schema = {
     title: Joi.string().required().label("Title"),
     content: Joi.string().required().label("Content"),
-    imageUrl: Joi.string().allow("").label("Image Url"),
+    picture: Joi.string().allow("").label("Image Url"),
     categoryId: Joi.string().required().label("Category"),
     highlighted: Joi.bool().required().label("Highlight"),
   };
 
-  const doSubmit = (article) => {
-    console.log("Article: ", article);
-    // call create article api
+  const doSubmit = async (article) => {
+    article.categoryId = parseInt(article.categoryId);
+    const articleCategories = categories.filter(category => category.id === article.categoryId);
+    article.articleCategories = [];
+    for (let i = 0; i < articleCategories.length; i++) {
+      article.articleCategories.push({
+        category: {
+          categoryID: articleCategories[i].id,
+          categoryName: articleCategories[i].name
+        }
+      });
+    }
+    delete article.categoryId;
+
+    if (articleId) {
+      try {
+        await articleService.updateArticle(article);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        await articleService.postNewArticle(article);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     props.history.replace("/");
   };
 
@@ -94,7 +128,7 @@ const ArticleForm = (props) => {
   };
 
   const submitButton = {
-    submitLabel: "Publish",
+    submitLabel: articleId ? "Republish" : "Publish",
   };
 
   const cancelButton = {
@@ -110,10 +144,10 @@ const ArticleForm = (props) => {
           cancelButton={cancelButton}
           doCancel={doCancel}
           doSubmit={doSubmit}
-          initialData={formData}
+          initialData={article}
           validationSchema={schema}
-          initialValidationState={initialValidationState}
-        ></Form>
+          initialValidationState={initialValidation}
+        />
       </div>
     </div>
   );

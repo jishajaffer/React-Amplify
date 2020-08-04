@@ -1,19 +1,11 @@
 export const categories = [
   {
     "categoryID": 1,
-    "categoryName": "Summercamp"
-  },
-  {
-    "categoryID": 2,
-    "categoryName": "COVID-19"
+    "categoryName": "books"
   },
   {
     "categoryID": 3,
-    "categoryName": "New Joiners"
-  },
-  {
-    "categoryID": 4,
-    "categoryName": "Business Update"
+    "categoryName": "test"
   },
 ];
 
