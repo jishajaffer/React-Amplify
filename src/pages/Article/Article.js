@@ -23,6 +23,11 @@ const Article = (props) => {
     // eslint-disable-next-line 
   }, []);
 
+  const handleDelete = async () => {
+    await articleService.deleteArticle(article);
+    window.location = "/";
+  }
+
   return (
     <div className="container">
       {isAdmin && (
@@ -33,6 +38,7 @@ const Article = (props) => {
                 className="btn float-right btn-secondary mr-2"
                 type="button"
                 data-testid="buttonDelete"
+                onClick={handleDelete}
               >
                 Delete Article
               </button>

@@ -26,3 +26,8 @@ export function updateArticle(article) {
   const endpointUrl = apiUrl + `/Articles/${article.articleID}`;
   return httpService.put(endpointUrl, article);
 }
+
+export function deleteArticle(article) {
+    const endpointUrl = apiUrl + `/Articles/${article.articleID}`;
+    return httpService.delete(endpointUrl);
+}
