@@ -26,7 +26,7 @@ function Navbar({ user }) {
               <img src={user.picture} id="profile-photo" alt="profile" />
             </button>
             <div className="dropdown-menu dropdown-menu-right">
-              <button class="dropdown-item" type="button" onClick={handleSignOut}>Sign out</button>
+              <button className="dropdown-item" type="button" onClick={handleSignOut}>Sign out</button>
             </div>
           </div>
         </li>
