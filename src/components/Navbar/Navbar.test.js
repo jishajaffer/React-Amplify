@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 test("Navbar contains brand logo and profile picture from user context", async () => {
   const wrappedNavbar = (
     <Router>
-      <UserProvider value={{ user: { profilePhoto: "photo.png" } }}>
+      <UserProvider value={{ user: { picture: "photo.png" } }}>
         <Navbar />
       </UserProvider>
     </Router>

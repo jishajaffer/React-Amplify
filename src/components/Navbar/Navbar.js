@@ -1,12 +1,12 @@
-import React /*{ useContext }*/ from "react";
+import React, { useContext } from "react";
 import logo from "../../images/summercamp.png";
-//import userContext from "../../context/userContext";
+import userContext from "../../context/userContext";
 
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
-function Navbar({user}) {
-  //const { user } = useContext(userContext);
+function Navbar() {
+  const { user } = useContext(userContext);
 
   return (
     <nav className="navbar bg-white navbar-expand shadow-sm">
