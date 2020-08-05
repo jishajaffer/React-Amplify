@@ -110,7 +110,7 @@ const articles = [
   },
 ];
 
-export function getMockedrticlesById(id) {
+export function getMockedArticlesById(id) {
   return articles.find(
     (article) => parseInt(article.articleID) === parseInt(id)
   );

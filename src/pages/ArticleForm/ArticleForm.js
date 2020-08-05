@@ -120,6 +120,7 @@ const ArticleForm = (props) => {
         console.log(err);
       }
     }
+    console.log("calling replace");
     props.history.replace("/");
   };
 

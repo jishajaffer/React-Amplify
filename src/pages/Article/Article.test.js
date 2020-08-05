@@ -2,6 +2,32 @@ import React from "react";
 import { fireEvent, render, cleanup } from "@testing-library/react";
 import Article from "./Article";
 import { BrowserRouter as Router } from "react-router-dom";
+import * as axios from "axios";
+
+import * as mockArticleService from "../../services/fakeArticleService";
+
+jest.mock("axios");
+
+beforeAll(() => {
+  axios.get.mockImplementation((url) => {
+    switch (url) {
+    case "testing/Articles/1":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesById(1),
+      });
+    case "testing/Articles/0":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesById(0),
+      });
+    }
+  });
+
+  axios.delete.mockImplementation(() => {
+    return Promise.resolve({
+      status: 200
+    });
+  });
+});
 
 test("renders article title if admin", async () => {
   const user = {

@@ -17,32 +17,32 @@ jest.mock("axios");
 beforeAll(() => {
   axios.get.mockImplementation((url) => {
     switch (url) {
-      case "testing/Articles":
-        return Promise.resolve({
-          data: mockArticleService.getMockedArticles(),
-        });
-      case "testing/Categories":
-        return Promise.resolve({
-          data: mockCategoryService.getMockedCategories(),
-        });
-      case "testing/Articles/Summercamp":
-        return Promise.resolve({
-          data: mockArticleService.getMockedArticlesByCategory("Summercamp"),
-        });
-      case "testing/Articles/COVID-19":
-        return Promise.resolve({
-          data: mockArticleService.getMockedArticlesByCategory("COVID-19"),
-        });
-      case "testing/Articles/New Joiners":
-        return Promise.resolve({
-          data: mockArticleService.getMockedArticlesByCategory("New Joiners"),
-        });
-      case "testing/Articles/Business Update":
-        return Promise.resolve({
-          data: mockArticleService.getMockedArticlesByCategory(
-            "Business Update"
-          ),
-        });
+    case "testing/Articles":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticles(),
+      });
+    case "testing/Categories":
+      return Promise.resolve({
+        data: mockCategoryService.getMockedCategories(),
+      });
+    case "testing/Articles/Summercamp":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesByCategory("Summercamp"),
+      });
+    case "testing/Articles/COVID-19":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesByCategory("COVID-19"),
+      });
+    case "testing/Articles/New Joiners":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesByCategory("New Joiners"),
+      });
+    case "testing/Articles/Business Update":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesByCategory(
+          "Business Update"
+        ),
+      });
     }
   });
 });
