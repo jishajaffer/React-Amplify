@@ -1,9 +1,43 @@
 import React from "react";
 import {
   fireEvent,
-  render
+  render,
+  waitFor
 } from "@testing-library/react";
 import ArticleForm from "./ArticleForm";
+import * as axios from "axios";
+
+import * as mockCategoryService from "../../services/fakeCategoryService";
+import * as mockArticleService from "../../services/fakeArticleService";
+
+jest.mock("axios");
+
+beforeAll(() => {
+  axios.put.mockImplementation(() => {
+    return Promise.resolve({
+      status: 200
+    });
+  });
+
+  axios.post.mockImplementation(() => {
+    return Promise.resolve({
+      status: 200
+    });
+  });
+
+  axios.get.mockImplementation((url) => {
+    switch (url) {
+    case "testing/Categories":
+      return Promise.resolve({
+        data: mockCategoryService.getMockedCategories(),
+      });
+    case "testing/Articles/1":
+      return Promise.resolve({
+        data: mockArticleService.getMockedArticlesById(1),
+      });
+    }
+  });
+});
 
 test("renders an empty article form and disabled Publish button if in create mode", async () => {
   const user = {
@@ -14,7 +48,7 @@ test("renders an empty article form and disabled Publish button if in create mod
   const titleInput = getByTestId("title");
   const contentInput = getByTestId("content");
   const categorySelect = getByTestId("categoryId");
-  const imageInput = getByTestId("imageUrl");
+  const imageInput = getByTestId("picture");
   const submitButton = getByText("Publish");
 
   expect(titleInput).toBeInTheDocument();
@@ -35,8 +69,8 @@ test("renders a populated article form if in edit mode", async () => {
   const titleInput = getByTestId("title");
   const contentInput = getByTestId("content");
   const categorySelect = getByTestId("categoryId");
-  const imageInput = getByTestId("imageUrl");
-  const submitButton = getByText("Publish");
+  const imageInput = getByTestId("picture");
+  const submitButton = getByText("Republish");
 
   expect(titleInput).toBeInTheDocument();
   expect(contentInput).toBeInTheDocument();
@@ -74,9 +108,11 @@ test("submiting takes the user to the homepage", async () => {
       match={{ params: { id: 1 } }}
     />
   );
-  const submitButton = getByText("Publish");
+  await waitFor(() => getByText("Republish"));
+  const submitButton = getByText("Republish");
 
   expect(submitButton).not.toHaveAttribute("disabled");
   fireEvent.click(submitButton);
-  expect(replace).toHaveBeenCalled();
+  await waitFor(() => expect(replace).toHaveBeenCalled());
+  
 });

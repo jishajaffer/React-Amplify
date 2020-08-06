@@ -1,15 +1,23 @@
 export const categories = [
   {
     "categoryID": 1,
-    "categoryName": "books"
+    "categoryName": "Summercamp"
+  },
+  {
+    "categoryID": 2,
+    "categoryName": "COVID-19"
   },
   {
     "categoryID": 3,
-    "categoryName": "test"
+    "categoryName": "New Joiners"
+  },
+  {
+    "categoryID": 4,
+    "categoryName": "Business Update"
   },
 ];
 
-export function getCategories() {
+export function getMockedCategories() {
   return categories.filter(c => c);
 }
 
