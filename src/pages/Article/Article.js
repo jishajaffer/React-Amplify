@@ -89,7 +89,13 @@ const Article = (props) => {
               <h1 className="font-weight-bold" data-testid="titleId">
                 {article.title}
               </h1>
-              <p data-testid="contentId">{article.content}</p>
+              <div data-testid="contentId">
+                {
+                  article.content.split('\n\n').map((item, i) => {
+                    return <p key={i}>{item}</p>;
+                  })
+                }
+              </div>
             </div>
           </div>
         </section>
