@@ -16,6 +16,11 @@ export async function login(idToken, googleUser) {
   storeGoogleUser(googleUser);
 }
 
+export function logout() {
+  localStorage.removeItem(tokenKey);
+  localStorage.removeItem("google_user");
+}
+
 const storeGoogleUser = (googleUser) => {
   localStorage.setItem("google_user", JSON.stringify(googleUser));
 };
