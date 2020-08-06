@@ -91,7 +91,7 @@ const Article = (props) => {
               </h1>
               <div data-testid="contentId">
                 {
-                  article.content.split('\n\n').map((item, i) => {
+                  article.content.split("\n\n").map((item, i) => {
                     return <p key={i}>{item}</p>;
                   })
                 }
